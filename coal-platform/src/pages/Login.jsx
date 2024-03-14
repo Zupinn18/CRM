@@ -2,9 +2,14 @@ import React, { useState } from 'react'
 import LoginImg from "../assests/log.png";
 import mailImg from "../assests/mail.png";
 import PassImg from "../assests/pass.png";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { login } from '../services/authAPI';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState({
         email:'',
         password:'',
@@ -17,7 +22,7 @@ const Login = () => {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log("formdata",formData);
+        dispatch(login(formData.email, formData.password, navigate))
     }
 
   return (

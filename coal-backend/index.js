@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const dbConnect = require("./Database/database.js");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const UserRoutes = require("./Routes/authRoute.js");
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -18,6 +19,9 @@ app.use(
         credentials: true,
     })
 )
+
+// Routes
+app.use("/api/v1/auth",UserRoutes);
 
 app.get('/', (req,res)=>{
     res.send('Hey, I am Backend Server Route');

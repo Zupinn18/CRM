@@ -13,13 +13,12 @@ const userSchema = new mongoose.Schema({
             type:String,
             required:true,
         },
-        confirmPassword:{
-            type:String,
-            required:true,
-        },
         phoneNumber:{
-            type:String
-        }
+            type:Number
+        },
+        token: {
+            type : String,
+        },
 });
 
 module.exports = mongoose.model("User",userSchema);

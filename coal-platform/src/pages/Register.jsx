@@ -5,9 +5,18 @@ import PassImg from "../assests/pass.png";
 import phoneImg from "../assests/phone.png";
 import userImg from "../assests/user.png";
 import {Link} from "react-router-dom";
+import {toast} from "react-hot-toast";
+import {useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
+import { setSignupData } from '../slices/authSlice';
+import { register } from '../services/authAPI';
 
 
 const Register = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState({
         fullName:'',
         email:'',
@@ -22,8 +31,28 @@ const Register = () => {
     })}
 
     const handleSubmit = (e) =>{
-        e.preventDefault();
-        console.log("formdata",formData);
+        e.preventDefault()
+
+        if(formData.password !== formData.confirmPassword) {
+            toast.error("Passwords Do Not Match")
+            return
+        }
+       
+        dispatch(register(formData.fullName, 
+            formData.email, 
+            formData.password,
+            formData.confirmPassword,
+            formData.phoneNumber, navigate));
+        dispatch(setSignupData(formData));
+
+        //Reset 
+        setFormData({
+            fullName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            phoneNumber:"",
+        })
     }
 
   return (
