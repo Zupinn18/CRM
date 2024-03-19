@@ -1,37 +1,101 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {createSale} from '../../../services/saleAPI';
+import {toast} from "react-hot-toast"
+import SaleTable from "./SaleTable.jsx";
 
-const Sale = () => {
-  const [formData, setFormData] = useState({
-    date:'',
-    ownerName:'',
-    vNumber:'',
-    load:'',
-    vLoad:'',
-    netWeight:'',
-    material:'',
-    paymentMode:'',
-    amount:'',
-  });
+const CreateSale = () => {
 
-  const handleInputChange = (e) =>{
-    setFormData({ ...formData,
-      [e.target.name]: e.target.value
-    });
-  }
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    console.log("sale data is ",formData);
-  }
+    const [formData, setFormData] = useState({
+        date:'',
+        ownerName:"",
+        vNumber:"",
+        load:"",
+        material:"",
+        paymentMode:"",
+        advanceAmount:"",
+        amount:"",
+      });
+
+      const [netWeight, setNetWeight] = useState(0);
+      const [vLoad, setVLoad] = useState(0);
+    
+      const handleInputChange = (e) =>{
+        setFormData({ ...formData,
+          [e.target.name]: e.target.value
+        });
+      }
+
+      useEffect(()=>{
+        const load = parseInt(formData.load);
+        const wt = load - vLoad;
+        setNetWeight(parseInt(wt));
+        console.log("tyep", typeof(netWeight));
+      },[vLoad])
+    
+      const handleSubmit = (e) =>{
+        e.preventDefault();
+
+        if(!formData.date || !formData.ownerName || !formData.amount || !formData.vNumber || !formData.load || !vLoad
+          || !formData.material || !formData.paymentMode) {
+            toast.error("All fields are required");
+            return
+        }
+
+        if(formData.paymentMode === 'due' && !formData.advanceAmount ){
+          toast.error("For due payments, Advance amount in required");
+          return
+        }
+       
+        if(formData.advanceAmount){
+          dispatch(createSale(
+            formData.date, 
+            formData.ownerName, 
+            formData.vNumber,
+            formData.load,
+            formData.material,
+            formData.paymentMode,
+            formData.amount,
+            netWeight,
+            vLoad,
+            formData.advanceAmount,
+             navigate));
+        }else{
+          dispatch(createSale(
+            formData.date, 
+            formData.ownerName, 
+            formData.vNumber,
+            formData.load,
+            formData.material,
+            formData.paymentMode,
+            formData.amount,
+            netWeight,
+            vLoad,
+            0,
+             navigate));
+        }
+
+        //Reset 
+        setFormData({
+          date:'',
+          ownerName:'',
+          vNumber:'',
+          load:'',
+          material:'',
+          paymentMode:'',
+          amount:'',
+          advanceAmount:'',
+        });
+        setNetWeight("");
+        setVLoad("");
+      }
 
   return (
-  <div className=' h-[100%] font-poppins pb-[50px] ' >
-        <h2 className='font-bold text-4xl text-[#5D59D9] font-poppins '
-            >Sale</h2>
-        <div className='w-full h-[1px] bg-[#BFBFBF] mt-7 mb-10 ' ></div>
-
-        {/* content or fields */}
-        <div>
+    <div>
             <form>
                 <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[50px] ' >
                 <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
@@ -78,13 +142,31 @@ const Sale = () => {
                                 onChange={handleInputChange}
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             >
+                              <option value="" >Select Payment Mode</option>
                               <option value="cash" >Cash</option>
                               <option value="due" >Due (Udhaar)</option>
                               <option value="online" >Online</option>
                             </select>
                   </div>
+                  {
+                    formData.paymentMode === 'due' && (
+                      <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='advanceAmount' className=' text-[18px] font-semibold font-poppins ' >Advance Amount</label>
+                            <input
+                                type='number'
+                                id='advanceAmount'
+                                name='advanceAmount'
+                                value={formData.advanceAmount}
+                                onChange={handleInputChange}
+                                placeholder='Enter deposit amount'
+                                className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            >
+                            </input>
+                  </div>
+                    )
+                  }
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='load' className=' text-[18px] font-semibold font-poppins ' >Load</label>
+                            <label id='load' className=' text-[18px] font-semibold font-poppins ' >Load (in tons)</label>
                             <input
                                 type='number'
                                 id='load'
@@ -96,25 +178,25 @@ const Sale = () => {
                             />
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='vLoad' className=' text-[18px] font-semibold font-poppins ' >V. Load</label>
+                            <label id='vLoad' className=' text-[18px] font-semibold font-poppins ' >V. Load (in tons)</label>
                             <input
                                 type='number'
                                 id='vLoad'
                                 name='vLoad'
-                                value={formData.vLoad}
-                                onChange={handleInputChange}
+                                value={vLoad}
+                                onChange={(e)=>setVLoad(e.target.value)}
                                 placeholder='Enter V.Load'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='netWeight' className=' text-[18px] font-semibold font-poppins ' >Net Weight</label>
+                            <label id='netWeight' className=' text-[18px] font-semibold font-poppins ' >Net Weight (in tons)</label>
                             <input
                                 type='number'
                                 id='netWeight'
                                 name='netWeight'
-                                value={formData.netWeight}
-                                onChange={handleInputChange}
+                                value={netWeight}
+                                onChange={(e)=>setNetWeight(e.target.value)}
                                 placeholder='Enter Net Weight'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
@@ -128,13 +210,14 @@ const Sale = () => {
                                 onChange={handleInputChange}
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             >
-                              <option value="cash" >Smaller Rocks</option>
-                              <option value="due" >Gravel</option>
-                              <option value="online" >Dust</option>
+                              <option value="" >Select Material</option>
+                               <option value="smallRocks" >Smaller Rocks</option>
+                              <option value="gravel" >Gravel</option>
+                              <option value="dust" >Dust</option>
                             </select>
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='amount' className=' text-[18px] font-semibold font-poppins ' >Amount</label>
+                            <label id='amount' className=' text-[18px] font-semibold font-poppins ' >Total Amount</label>
                             <input
                                 type='number'
                                 id='amount'
@@ -151,9 +234,13 @@ const Sale = () => {
                  hover:bg-[#3e3aa3] transition-all duration-300' 
                 >Submit Data</button>
             </form>
+
+            <h2 className='font-bold text-4xl text-[#5D59D9] font-poppins mt-[50px] '
+            >All Sales Data</h2>
+            <div className='w-full h-[1px] bg-[#BFBFBF] mt-3 mb-5 ' ></div>
+            <SaleTable/>
         </div>
-    </div>
   )
 }
 
-export default Sale
+export default CreateSale

@@ -3,7 +3,6 @@ import { setLoading, setToken } from "../slices/authSlice";
 import {setUser} from "../slices/profileSlice";
 import { apiConnector } from "./apiConnector";
 import { BASE_URL } from "../BaseURL.js";
-import { useNavigate } from "react-router-dom";
 
 
 export function register(fullName,email,password,confirmPassword,phoneNumber, navigate) {
@@ -19,8 +18,6 @@ export function register(fullName,email,password,confirmPassword,phoneNumber, na
                 confirmPassword,
                 phoneNumber,
             });
-
-            console.log("signup api response", response);
 
             if(!response.data.success){
                 throw new Error(response.data.message)
@@ -64,7 +61,7 @@ export function login(email, password, navigate){
 
         } catch (error) {
             console.log("LOGIN API ERROR..............", error)
-            toast.error("Login Failed")
+            toast.error(`Login failed due to ${error.message}`)
         }
         dispatch(setLoading(false))
         toast.dismiss(toastId)

@@ -33,6 +33,10 @@ const saleSchema = new mongoose.Schema({
             type:String,
             required:true,
         },
+        advanceAmount:{
+            type:Number,
+            required:true,
+        },
         amount:{
             type:Number,
             required:true,

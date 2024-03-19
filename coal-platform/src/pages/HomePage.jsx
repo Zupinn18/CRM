@@ -5,10 +5,10 @@ import LoginImg from "../assests/log.png";
 const HomePage = () => {
   return (
    <div className='w-full h-[100vh] ' >
-         <div className='w-full h-[90%] flex justify-between gap-[100px] font-poppins pb-10' >
+    <div className='w-full h-[90%] flex justify-between gap-[100px] font-poppins pb-10' >
     {/* image */}
     <div className='hidden lg:flex items-center' >
-        <img src={LoginImg} width="600px" className='' loading='lazy' alt='Side Image' />
+        <img src={LoginImg} width="600px" loading='lazy' alt='Side IMG' />
     </div>
     {/* Content */}
     <div className='w-full lg:w-[60%] h-[100%] mt-[40px] bg-[white] rounded-md flex flex-col px-10 py-10 ' >

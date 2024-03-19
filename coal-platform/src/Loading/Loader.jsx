@@ -3,7 +3,10 @@ import './Loader.css';
 
 const Loader = () => {
   return (
-    <div class="loader"></div> 
+    <div className='ml-[50%] flex items-center justify-center ' >
+      <div className="loader "></div>
+    </div>
+
   )
 }
 

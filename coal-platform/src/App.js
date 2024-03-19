@@ -1,9 +1,8 @@
 import './App.css';
 import Login from './pages/Login'; 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Register from './pages/Register';
-import Home from './pages/Dashboard/Home';
-import {  useSelector } from 'react-redux';
+import Dashboard from './pages/Dashboard/Dashboard';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import  OpenRoute  from "./components/Auth/OpenRoute";
@@ -13,13 +12,11 @@ import HomePage from './pages/HomePage';
 function App() {
   const navigate = useNavigate();
 
-  const { user } = useSelector((state) => state.profile)
-
   useEffect(() => {
     if (localStorage.getItem('token') && localStorage.getItem("user") ) {
       navigate("/dashboard");
     }
-  }, [])
+  },[])
 
   return (
     <div className='w-[100%] h-full bg-[#E5E5E5] ' >
@@ -39,7 +36,7 @@ function App() {
            <Route path="/login" element={<Login />}/>
            <Route path="/dashboard" element={
             <PrivateRoute>
-              <Home />
+              <Dashboard />
             </PrivateRoute>
            }/>
         </Routes>

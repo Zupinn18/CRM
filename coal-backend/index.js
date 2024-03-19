@@ -5,6 +5,7 @@ const dbConnect = require("./Database/database.js");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const UserRoutes = require("./Routes/authRoute.js");
+const SaleRoutes = require("./Routes/saleRoute.js");
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -22,6 +23,7 @@ app.use(
 
 // Routes
 app.use("/api/v1/auth",UserRoutes);
+app.use('/api/v1/sale',SaleRoutes);
 
 app.get('/', (req,res)=>{
     res.send('Hey, I am Backend Server Route');
