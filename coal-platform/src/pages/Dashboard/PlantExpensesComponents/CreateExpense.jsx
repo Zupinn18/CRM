@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
+import { uploadExpense } from "../../../services/expenseAPI.js";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {toast} from "react-hot-toast"
+import ExpenseTable from './ExpenseTable.js';
 
 const CreateExpense = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
         date:'',
@@ -19,12 +26,33 @@ const CreateExpense = () => {
     
       const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log("form is ", formData);
+        
+        if(!formData.date || !formData.electricity || !formData.fuel || !formData.internet || !formData.salary || !formData.tea){
+          toast.error("All fields are required ");
+          return;
+        }
+
+        dispatch(uploadExpense(
+          formData.date,
+          formData.salary,
+          formData.tea,
+          formData.electricity,
+          formData.internet,
+          formData.fuel,
+          navigate,
+        ));
+
+          formData.date="";
+          formData.salary="";
+          formData.tea="";
+          formData.electricity="";
+          formData.internet="";
+          formData.fuel="";
       }
 
   return (
     <div>
-                    <form>
+            <form>
                 <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[50px] ' >
                 <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
                             <label id='date' className=' text-[18px] font-semibold font-poppins ' >Date</label>
@@ -104,6 +132,11 @@ const CreateExpense = () => {
                  hover:bg-[#3e3aa3] transition-all duration-300' 
                 >Submit Data</button>
             </form>
+
+            <h2 className='font-bold text-4xl text-[#5D59D9] font-poppins mt-[50px] '
+            >Expense Data</h2>
+            <div className='w-full h-[1px] bg-[#BFBFBF] mt-3 mb-5 ' ></div>
+            <ExpenseTable/>
     </div>
   )
 }

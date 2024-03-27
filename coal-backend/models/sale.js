@@ -41,6 +41,12 @@ const saleSchema = new mongoose.Schema({
             type:Number,
             required:true,
         },
+        LastUpdatedBy:{
+            type:String
+        },
+        LastUpdatedAt:{
+            type:Date
+        }
 });
 
 module.exports = mongoose.model("Sale",saleSchema);

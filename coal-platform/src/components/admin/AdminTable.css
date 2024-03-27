@@ -1,0 +1,14 @@
+
+@media screen and (max-width:1000px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: wrap;
+      }
+}
+  
+
+table::-webkit-scrollbar-thumb {
+    -webkit-appearance: none;
+    width: 4px;
+}

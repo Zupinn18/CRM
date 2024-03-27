@@ -3,15 +3,18 @@ const app = express();
 const dotenv = require("dotenv");
 const dbConnect = require("./Database/database.js");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const UserRoutes = require("./Routes/authRoute.js");
 const SaleRoutes = require("./Routes/saleRoute.js");
+const ExpenseRoutes = require("./Routes/expenseRoute.js");
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 
 // middlewares
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -24,6 +27,7 @@ app.use(
 // Routes
 app.use("/api/v1/auth",UserRoutes);
 app.use('/api/v1/sale',SaleRoutes);
+app.use('/api/v1/expense',ExpenseRoutes);
 
 app.get('/', (req,res)=>{
     res.send('Hey, I am Backend Server Route');

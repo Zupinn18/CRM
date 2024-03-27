@@ -99,13 +99,14 @@ const CreateSale = () => {
             <form>
                 <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[50px] ' >
                 <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='date' className=' text-[18px] font-semibold font-poppins ' >Date</label>
+                            <label id='vNumber' className=' text-[18px] font-semibold font-poppins ' >V. Number</label>
                             <input
-                                type='date'
-                                id='date'
-                                name='date'
-                                value={formData.date}
+                                type='number'
+                                id='vNumber'
+                                name='vNumber'
+                                value={formData.vNumber}
                                 onChange={handleInputChange}
+                                placeholder='Enter V.No'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
@@ -121,15 +122,14 @@ const CreateSale = () => {
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
-                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='vNumber' className=' text-[18px] font-semibold font-poppins ' >V. Number</label>
+                <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='date' className=' text-[18px] font-semibold font-poppins ' >Date</label>
                             <input
-                                type='number'
-                                id='vNumber'
-                                name='vNumber'
-                                value={formData.vNumber}
+                                type='date'
+                                id='date'
+                                name='date'
+                                value={formData.date}
                                 onChange={handleInputChange}
-                                placeholder='Enter V.No'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>

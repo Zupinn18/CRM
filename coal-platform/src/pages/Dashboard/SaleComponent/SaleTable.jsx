@@ -12,7 +12,7 @@ const SaleTable = () => {
     const [saleData, setSaleData] = useState([]);
     const {loading} = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-
+   
     const getAllSales = async()=>{
         dispatch(setLoading(true));
         try {
@@ -35,8 +35,20 @@ const SaleTable = () => {
         getAllSales();
     },[])
 
+    let paidMoney=0,totalMoney=0;
+    saleData.forEach(obj => {
+      if(obj.advanceAmount!=0){
+        paidMoney+=obj.advanceAmount;
+      }
+      if(obj.advanceAmount==0){
+        paidMoney+=obj.amount;
+      }
+
+      totalMoney+=obj.amount;
+    });
+
   return (
-          <div className="flex flex-col " >
+          <div className="flex flex-col" >
             <div >
               <div className="p-1.5 w-full inline-block align-middle">
                 <div className="overflow-hidden border rounded-lg">
@@ -45,82 +57,81 @@ const SaleTable = () => {
                       <tr >
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           V.Number
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           Owner Name
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           Load
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           V.Load
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           Net Weight
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           Date
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           Material Type
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           Payment Mode
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           Paid Amount
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left uppercase "
                         >
                           Remaining Amount
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-sm font-bold text-left  uppercase "
+                          className="px-6
+                           py-3 text-sm font-bold text-left  uppercase "
                         >
                           Total Amount
                         </th>
-                        {/* <th
-                          scope="col"
-                          className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
-                        >
-                          Edit
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
-                        >
-                          Delete
-                        </th> */}
                       </tr>
                     </thead>
                     {/* table body */}
@@ -136,36 +147,46 @@ const SaleTable = () => {
                         saleData.map((sale,index)=>(
                             <tbody className="divide-y divide-gray-200" key={index} >
                 <tr className='bg-gray-50' >
-                        <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
+                        <td className="px-6
+                         py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
                           {sale?.vNumber}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">{sale?.ownerName}</td>
-                        <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                        <td className="px-6
+                         py-4 text-sm text-gray-800 whitespace-nowrap">{sale?.ownerName}</td>
+                        <td className="px-6
+                         py-4 text-sm text-gray-800 whitespace-nowrap">
                         {sale?.load}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                        <td className="px-6
+                         py-4 text-sm text-gray-800 whitespace-nowrap">
                         {sale?.vLoad}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                        <td className="px-6
+                         py-4 text-sm text-gray-800 whitespace-nowrap">
                         {sale?.netWeight}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                        <td className="px-6
+                         py-4 text-sm text-gray-800 whitespace-nowrap">
                         {formateDate(sale?.date)}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                        <td className="px-6
+                         py-4 text-sm text-gray-800 whitespace-nowrap">
                         {sale?.material}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                        <td className="px-6
+                         py-4 text-sm text-gray-800 whitespace-nowrap">
                         {sale?.paymentMode}
                         </td>
                         {
                           sale?.paymentMode === 'due' ?
                           (
-                            <td className="px-6 py-4 text-sm text-green-500 font-semibold whitespace-nowrap">
+                            <td className="px-6
+                             py-4 text-sm text-green-500 font-semibold whitespace-nowrap">
                             {sale?.advanceAmount}
                             </td>
                           ) :
-                          (<td className="px-6 py-4 text-sm text-green-500 font-semibold whitespace-nowrap">
+                          (<td className="px-6
+                           py-4 text-sm text-green-500 font-semibold whitespace-nowrap">
                         {
                           sale?.amount
                         }
@@ -173,30 +194,58 @@ const SaleTable = () => {
                         }
                         {
                           sale?.paymentMode === 'due' ? 
-                          (<td className="px-6 py-4 text-sm text-red-500 font-semibold whitespace-nowrap">
+                          (<td className="px-6
+                           py-4 text-sm text-red-500 font-semibold whitespace-nowrap">
                         {parseInt(sale?.amount) - parseInt(sale?.advanceAmount)}
                         </td>) :
-                          (<td className="px-6 py-4 text-sm text-red-500 font-semibold whitespace-nowrap">
+                          (<td className="px-6
+                           py-4 text-sm text-red-500 font-semibold whitespace-nowrap">
                         {0}
                         </td>)
                         }
-                        <td className="px-6 py-4 text-sm text-yellow-500 font-semibold whitespace-nowrap">
+                        <td className="px-6
+                         py-4 text-sm text-yellow-500 font-semibold whitespace-nowrap">
                         {sale?.amount}
                         </td>
-                        {/* <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                          <a className="text-green-500 hover:text-green-700" href="#">
-                            Edit
-                          </a>
-                        </td>
-                        <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                          <a className="text-red-500 hover:text-red-700" href="#">
-                            Delete
-                          </a>
-                        </td> */}
+                        {/* <td className="px-6
+                         py-4 text-sm font-semibold whitespace-nowrap">
+                            <button className=" px-4 py-2 rounded-md  text-white bg-blue-500 hover:bg-blue-600">
+                              Edit
+                            </button>
+                          </td> */}
                       </tr>
                     </tbody>
                         ))
                         )
+                    }
+                    {
+                      !loading && (
+                      <tr className="divide-y divide-gray-200 bg-gray-100 " >
+                          <td className="px-6
+                           py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
+                                Total
+                          </td> 
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td className="px-6
+                           py-4 text-sm font-bold text-green-600 whitespace-nowrap">
+                            {paidMoney}
+                          </td>
+                          <td className="px-6
+                           py-4 text-sm font-bold text-red-600 whitespace-nowrap">
+                            {totalMoney-paidMoney}
+                          </td>
+                          <td className="px-6
+                           py-4 text-sm font-bold text-yellow-600 whitespace-nowrap" >
+                            {totalMoney}
+                          </td>
+                    </tr>
+                      )
                     }
                   </table>
                 </div>

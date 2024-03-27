@@ -6,8 +6,9 @@ import PlantExpense from "./PlantExpensesComponents/PlantExpense.jsx";
 import { logout } from '../../services/authAPI.js';
 import { VscSignOut } from "react-icons/vsc"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { RxHamburgerMenu } from "react-icons/rx";
+import { FaSquareArrowUpRight } from "react-icons/fa6";
 
 const Home = () => {
     const { user } = useSelector((state) => state.profile)
@@ -74,6 +75,12 @@ const Home = () => {
                 </div>
        </div>
        {/* <RxHamburgerMenu /> */}
+       {/* <Link to="/admin-dashboard" relative='path' >
+                        <div className='px-2 py-2 flex items-center gap-2' >
+                              Admin
+                              <FaSquareArrowUpRight />
+                        </div>
+      </Link> */}
        {/* content part */}
        { formtype === 'rbm' && (<Rbm/>)}
        { formtype === 'sale' && (<Sale/>)}

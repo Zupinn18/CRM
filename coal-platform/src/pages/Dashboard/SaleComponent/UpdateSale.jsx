@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {updateSale} from '../../../services/saleAPI';
 import {toast} from "react-hot-toast";
 import SaleTable from './SaleTable';
+import { setLoading } from '../../../slices/authSlice';
+import { apiConnector } from '../../../services/apiConnector';
+import { BASE_URL } from '../../../BaseURL';
 
 const UpdateSale = () => {
   const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const { user } = useSelector((state) => state.profile)
+
     const [formData, setFormData] = useState({
-        date:'',
         ownerName:"",
         vNumber:"",
         load:"",
@@ -33,13 +37,16 @@ const UpdateSale = () => {
         const load = parseInt(formData.load);
         const wt = load - vLoad;
         setNetWeight(parseInt(wt));
-      },[vLoad])
-    
+      },[vLoad]);
+
+      let LastUpdatedBy;
+      LastUpdatedBy=user.fullName;
+
       const handleUpdate = (e) =>{
         e.preventDefault();
 
-        if(!formData.vNumber || !formData.date || !formData.ownerName || !formData.vNumber || !formData.material || 
-          !formData.paymentMode || !formData.material || !formData.amount || !netWeight || !vLoad){
+        if(!formData.ownerName || !formData.material || 
+          !formData.paymentMode || !formData.amount || !netWeight || !vLoad){
           toast.error("All fields are Required");
           return;
         }
@@ -52,9 +59,8 @@ const UpdateSale = () => {
            
         if(formData.advanceAmount){
           dispatch(updateSale(
-            formData.date, 
-            formData.ownerName, 
-            formData.vNumber,
+            selectedSaleId,
+            formData.ownerName,
             formData.load,
             formData.material,
             formData.paymentMode,
@@ -62,12 +68,12 @@ const UpdateSale = () => {
             netWeight,
             vLoad,
             formData.advanceAmount,
+            LastUpdatedBy,
            navigate));
             }else{
               dispatch(updateSale(
-                formData.date, 
-                formData.ownerName, 
-                formData.vNumber,
+                selectedSaleId,
+                formData.ownerName,
                 formData.load,
                 formData.material,
                 formData.paymentMode,
@@ -75,12 +81,12 @@ const UpdateSale = () => {
                 netWeight,
                 vLoad,
                 0,
+                LastUpdatedBy,
                navigate));
             }
 
         //Reset 
         setFormData({
-          date:'',
           ownerName:'',
           vNumber:'',
           load:'',
@@ -91,22 +97,82 @@ const UpdateSale = () => {
         });
         setNetWeight("");
         setVLoad("");
+        setSelectedSaleId("");
       }
+
+    const [saleData, setSaleData] = useState([]);
+    const [vNumData, setVnumData] = useState([]);
+    const [selectedSaleId, setSelectedSaleId] = useState('');
+
+    const getAllSales = async()=>{
+
+        dispatch(setLoading(true));
+        try {
+          const response = await apiConnector("get",`${BASE_URL}/sale/get-sale`);
+          
+            if(!response.data.success){
+                throw new Error(response.data.message);
+            }
+          
+            setSaleData(response.data.data);
+
+        } catch (error) {
+            console.log("Can't fetch Data due to",error);
+        }
+        dispatch(setLoading(false));
+    }
+
+    useEffect(()=>{
+        getAllSales();
+    },[formData.vNumber])
+
+  const getOneSale = async() =>{
+    dispatch(setLoading(true));
+    try {
+     
+      const response = await apiConnector("get",`${BASE_URL}/sale/get-one-sale/${selectedSaleId}`);
+      
+        if(!response.data.success){
+            throw new Error(response.data.message);
+        }
+
+        setFormData(response?.data.data);
+        setNetWeight(response?.data.data.netWeight);
+        setVLoad(response?.data.data.vLoad);
+
+
+    } catch (error) {
+        console.log("Can't fetch Data due to",error);
+    }
+    dispatch(setLoading(false));
+  }
+
+  useEffect(()=>{
+    getOneSale();
+  },[selectedSaleId])
+
+
 
   return (
     <div>
             <form>
                 <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[50px] ' >
                 <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='date' className=' text-[18px] font-semibold font-poppins ' >Date</label>
-                            <input
-                                type='date'
-                                id='date'
-                                name='date'
-                                value={formData.date}
-                                onChange={handleInputChange}
+                            <label id='vNumber' className=' text-[18px] font-semibold font-poppins ' >V. Number</label>
+                            <select
+                                id='number'
+                                name='vNumber'
+                                // value={formData.vNumber}
+                                onChange={(e)=>setSelectedSaleId(e.target.value)}
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
-                            />
+                            >
+                              <option value="" >Select vNumber</option>
+                              {
+                                saleData.map((item)=>(
+                                  <option key={item._id} value={item._id}>{item.vNumber}</option>
+                                ))
+                              }
+                            </select>
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
                             <label id='ownerName' className=' text-[18px] font-semibold font-poppins ' >Owner Name</label>
@@ -120,18 +186,17 @@ const UpdateSale = () => {
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
-                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='vNumber' className=' text-[18px] font-semibold font-poppins ' >V. Number</label>
+                {/* <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='date' className=' text-[18px] font-semibold font-poppins ' >Date</label>
                             <input
-                                type='number'
-                                id='vNumber'
-                                name='vNumber'
-                                value={formData.vNumber}
+                                type='date'
+                                id='date'
+                                name='date'
+                                value={formData.date}
                                 onChange={handleInputChange}
-                                placeholder='Enter V.No'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
-                  </div>
+                  </div> */}
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
                             <label id='paymentMode' className=' text-[18px] font-semibold font-poppins ' >Payment Mode</label>
                             <select

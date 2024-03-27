@@ -65,9 +65,8 @@ exports.updateSale = async(req,res)=>{
     try{
 
         const {
-            date,
             ownerName,
-            vNumber,
+            id,
             load,
             vLoad,
             netWeight,
@@ -75,26 +74,36 @@ exports.updateSale = async(req,res)=>{
             paymentMode,
             amount,
             advanceAmount,
+            LastUpdatedBy,
         } = req.body;
         //validate fields
-        if(!vNumber || !date || !ownerName || !load || !vLoad || !netWeight || !paymentMode || !amount ){
+
+        if(!id ){
+            return res.status(403).json({
+                success:false,
+                message:'Choose a v.Number',
+            });
+        }
+
+        if(!ownerName || !load || !vLoad || !netWeight || !paymentMode || !amount ){
             return res.status(403).json({
                 success:false,
                 message:'All fields are mandatory',
             });
         }
 
-        const saleData = await Sale.findOneAndUpdate({vNumber},
-                {   date,
+        const saleData = await Sale.findByIdAndUpdate({_id:id},
+                {
                     ownerName,
-                    vNumber,
                     load,
                     vLoad,
                     netWeight,
                     material,
                     paymentMode,
                     amount,
-                    advanceAmount
+                    advanceAmount,
+                    LastUpdatedBy:LastUpdatedBy,
+                    LastUpdatedAt:new Date(),
               },
             {new: true},
         );
@@ -136,6 +145,36 @@ exports.getAllSales = async(req,res)=>{
         return res.status(500).json({
             success:false,
             message:`Can't fetch all sales due to ${error.message} `,
+        });
+    }
+}
+
+//get all the one sale data on ID
+exports.getSale = async(req,res)=>{
+    try {
+        const {
+            id
+        } = req.params;
+        
+        const oneSale = await Sale.findById({_id:id});
+    
+        if(!oneSale){
+            return res.status(403).json({
+                success:false,
+                message:'Not a valid V.number',
+            });
+        }
+
+        return res.status(200).json({
+            success:true,
+            message:'Sale Fetched Successfully',
+            data:oneSale,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:`Can't fetch sale for vNumber due to ${error.message} `,
         });
     }
 }

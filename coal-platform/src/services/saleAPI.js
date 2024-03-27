@@ -51,9 +51,8 @@ export function createSale(
 }
 
 export function updateSale( 
-    date,
+    id,
     ownerName,
-    vNumber,
     load,
     material,
     paymentMode,
@@ -61,6 +60,7 @@ export function updateSale(
     netWeight,
     vLoad,
     advanceAmount,
+    LastUpdatedBy,
     navigate,
     ){
 
@@ -69,15 +69,15 @@ return async (dispatch) =>{
     dispatch(setLoading(true))
     try {
         const response = await apiConnector("PUT",`${BASE_URL}/sale/update-sale`,{
-            date,
+            id,
             ownerName,
-            vNumber,
             load,
             vLoad,
             netWeight,
             material,
             paymentMode,
             advanceAmount,
+            LastUpdatedBy,
             amount:amount,
         });
 

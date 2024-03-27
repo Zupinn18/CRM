@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import  OpenRoute  from "./components/Auth/OpenRoute";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import HomePage from './pages/HomePage';
+import AdminDashboard from './components/admin/AdminDashboard';
 
 function App() {
   const navigate = useNavigate();
@@ -38,6 +39,12 @@ function App() {
             <PrivateRoute>
               <Dashboard />
             </PrivateRoute>
+           }/>
+           <Route path="/admin-dashboard" 
+           element={
+            <OpenRoute>
+            <AdminDashboard />
+            </OpenRoute>
            }/>
         </Routes>
       </div>
