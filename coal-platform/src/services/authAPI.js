@@ -60,8 +60,8 @@ export function login(email, password, navigate){
             navigate("/dashboard");
 
         } catch (error) {
-            console.log("LOGIN API ERROR..............", error)
-            toast.error(`Login failed due to ${error.message}`)
+            console.log("LOGIN API ERROR..............", error);
+            toast.error(`Login failed due to ${error.response.data.message}`)
         }
         dispatch(setLoading(false))
         toast.dismiss(toastId)

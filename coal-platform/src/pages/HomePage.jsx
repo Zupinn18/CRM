@@ -27,10 +27,16 @@ const HomePage = () => {
         <Link to="/login" >
             <button 
                     className='w-full bg-[rgb(93,89,217)] mt-10 font-semibold text-white px-2 py-3 rounded-md
-                    hover:bg-[#3e3aa3] transition-all duration-300 mb-10 ' 
+                    hover:bg-[#3e3aa3] transition-all duration-300 ' 
             >Continue with Existing Account</button>
         </Link>
-      
+        <Link to="/admin-dashboard" >
+            <button 
+                    className='w-full bg-[rgb(93,89,217)] mt-10 font-semibold text-white px-2 py-3 rounded-md
+                    hover:bg-[#3e3aa3] transition-all duration-300 mb-10 ' 
+            >Admin Dashboard</button>
+        </Link>
+
     </div>
 </div>
    </div>

@@ -10,7 +10,7 @@ const saleSchema = new mongoose.Schema({
             required:true,
         },
         vNumber:{
-            type:Number,
+            type:String,
             required:true,
         },
         load:{

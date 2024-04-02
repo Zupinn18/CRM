@@ -37,10 +37,10 @@ const SaleTable = () => {
 
     let paidMoney=0,totalMoney=0;
     saleData.forEach(obj => {
-      if(obj.advanceAmount!=0){
+      if(obj.advanceAmount!==0){
         paidMoney+=obj.advanceAmount;
       }
-      if(obj.advanceAmount==0){
+      if(obj.advanceAmount===0){
         paidMoney+=obj.amount;
       }
 

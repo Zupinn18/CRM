@@ -34,7 +34,6 @@ const CreateSale = () => {
         const load = parseInt(formData.load);
         const wt = load - vLoad;
         setNetWeight(parseInt(wt));
-        console.log("tyep", typeof(netWeight));
       },[vLoad])
     
       const handleSubmit = (e) =>{
@@ -92,6 +91,7 @@ const CreateSale = () => {
         });
         setNetWeight("");
         setVLoad("");
+        window.location.reload();
       }
 
   return (
@@ -101,7 +101,7 @@ const CreateSale = () => {
                 <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
                             <label id='vNumber' className=' text-[18px] font-semibold font-poppins ' >V. Number</label>
                             <input
-                                type='number'
+                                type='text'
                                 id='vNumber'
                                 name='vNumber'
                                 value={formData.vNumber}

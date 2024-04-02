@@ -98,6 +98,7 @@ const UpdateSale = () => {
         setNetWeight("");
         setVLoad("");
         setSelectedSaleId("");
+        window.location.reload();
       }
 
     const [saleData, setSaleData] = useState([]);

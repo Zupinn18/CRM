@@ -48,6 +48,7 @@ const CreateExpense = () => {
           formData.electricity="";
           formData.internet="";
           formData.fuel="";
+          window.location.reload();
       }
 
   return (
