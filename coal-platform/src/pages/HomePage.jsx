@@ -16,17 +16,9 @@ const HomePage = () => {
         <h2 className='font-bold text-4xl text-[#5D59D9] font-poppins '
         >Start your Journey with us</h2>
         <div className='w-full h-[1px] bg-[#BFBFBF] mt-7 mb-7 ' ></div>
-
-        <Link to="/register" >
-            <button 
-                    className='w-full bg-[rgb(93,89,217)] mt-10 font-semibold text-white px-2 py-3 rounded-md
-                    hover:bg-[#3e3aa3] transition-all duration-300' 
-            >Create a New Account</button>
-        </Link>
-
         <Link to="/login" >
             <button 
-                    className='w-full bg-[rgb(93,89,217)] mt-10 font-semibold text-white px-2 py-3 rounded-md
+                    className='w-full bg-[rgb(93,89,217)] font-semibold text-white px-2 py-3 rounded-md
                     hover:bg-[#3e3aa3] transition-all duration-300 ' 
             >Continue with Existing Account</button>
         </Link>

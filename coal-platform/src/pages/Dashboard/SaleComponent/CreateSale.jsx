@@ -91,7 +91,6 @@ const CreateSale = () => {
         });
         setNetWeight("");
         setVLoad("");
-        window.location.reload();
       }
 
   return (
