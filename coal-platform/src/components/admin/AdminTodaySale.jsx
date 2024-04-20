@@ -1,53 +1,69 @@
+import AdminTable from './AdminTable';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react'
 import {BASE_URL} from "../../BaseURL.js" ;
 import { apiConnector } from '../../services/apiConnector.js';
 import { setLoading } from '../../slices/authSlice.js';
-import { useDispatch, useSelector } from 'react-redux';
-import Loader from "../../Loading/Loader.jsx";
 import toast from 'react-hot-toast';
 import { formateDate } from '../../utils/formateDate.jsx';
 import './AdminTable.css';
+import TodaySale from "../../pages/Dashboard/SaleComponent/TodaySale.jsx"
+import { Link } from 'react-router-dom';
 import { formateTime } from '../../utils/formateTime.js';
+import Loader from '../../Loading/Loader.jsx';
 
-const AdminTable = () => {
-    const [saleData, setSaleData] = useState([]);
-    const {loading} = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
-   
-    const getAllSales = async()=>{
-        dispatch(setLoading(true));
-        try {
-            const response = await apiConnector("get",`${BASE_URL}/sale/get-sale`);
+const AdminTodaySale = () => {
+    const date = new Date();
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const weeks = ["Sunday","Monday","Tuesday","Thursday","Friday","Saturday"];
+  const d = new Date();
+  let month = months[d.getMonth()];
+  let day = weeks[d.getDay()];
+  let dat = d.getDate();
 
-            if(!response.data.success){
-                throw new Error(response.data.message);
-            }
+  const [saleData, setSaleData] = useState([]);
+  const {loading} = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+ 
+  const getAllSales = async()=>{
+      dispatch(setLoading(true));
+      try {
+          const response = await apiConnector("get",`${BASE_URL}/sale/get-sale`);
 
-            setSaleData(response.data.data);
+          if(!response.data.success){
+              throw new Error(response.data.message);
+          }
 
-        } catch (error) {
-            console.log("Can't fetch Data due to",error);
-            toast.error("Sale data can't be fetched");
-        }
-        dispatch(setLoading(false));
-    }
+          setSaleData(response.data.data);
 
-    useEffect(()=>{
-        getAllSales();
-    },[])
+      } catch (error) {
+          console.log("Can't fetch Data due to",error);
+          toast.error("Sale data can't be fetched");
+      }
+      dispatch(setLoading(false));
+  }
 
+  useEffect(()=>{
+      getAllSales();
+  },[])
+
+  const todayDate = new Date().toISOString().split('T')[0];
+
+    // Filter data for today's date
+    const todayData = saleData.filter(item => item.date.startsWith(todayDate));
+
+    
     let paidMoney=0,totalMoney=0;
-    saleData.forEach(obj => {
-      if(obj.advanceAmount!=0){
+    todayData?.forEach(obj => {
+      if(obj.advanceAmount!==0){
         paidMoney+=obj.advanceAmount;
       }
-      if(obj.advanceAmount==0){
+      if(obj.advanceAmount===0){
         paidMoney+=obj.amount;
       }
 
       totalMoney+=obj.amount;
     });
-
 
   return (
     <div className="flex flex-col " >
@@ -153,7 +169,7 @@ const AdminTable = () => {
             }
             {
                 !loading && (
-                saleData.map((sale,index)=>(
+                todayData.map((sale,index)=>(
                     <tbody className="divide-y divide-gray-200" key={index} >
         <tr className='bg-gray-50' >
                 <td className="px-4
@@ -274,4 +290,4 @@ const AdminTable = () => {
   )
 }
 
-export default AdminTable
+export default AdminTodaySale

@@ -24,13 +24,15 @@ exports.createSale = async(req,res)=>{
             });
         }
 
-        const getSale = await Sale.findOne({vNumber});
-        if(getSale){
-            return res.status(403).json({
-                success:false,
-                message:'This V.Number is present, TRY AGAIN with different V.No'
-            });
-        }
+        // const getSale = await Sale.findOne({vNumber});
+        // if(getSale){
+        //     return res.status(403).json({
+        //         success:false,
+        //         message:'This V.Number is present, TRY AGAIN with different V.No'
+        //     });
+        // }
+
+        const time = Date.now();
 
         const saleData = await Sale.create({
                     date:date,
@@ -38,6 +40,7 @@ exports.createSale = async(req,res)=>{
                     vNumber:vNumber,
                     load:load,
                     vLoad:vLoad,
+                    time:time,
                     netWeight:netWeight,
                     material:material,
                     paymentMode:paymentMode,
@@ -92,6 +95,8 @@ exports.updateSale = async(req,res)=>{
             });
         }
 
+        const time = Date.now();
+
         const saleData = await Sale.findByIdAndUpdate({_id:id},
                 {
                     ownerName,
@@ -99,6 +104,7 @@ exports.updateSale = async(req,res)=>{
                     vLoad,
                     netWeight,
                     material,
+                    time:time,
                     paymentMode,
                     amount,
                     advanceAmount,

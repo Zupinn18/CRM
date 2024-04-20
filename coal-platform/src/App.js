@@ -9,25 +9,33 @@ import  OpenRoute  from "./components/Auth/OpenRoute";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import HomePage from './pages/HomePage';
 import AdminDashboard from './components/admin/AdminDashboard';
+import UpdateSale from './pages/Dashboard/SaleComponent/UpdateSale';
 
 function App() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (localStorage.getItem('token') && localStorage.getItem("user") ) {
-      navigate("/dashboard");
-    }
-  },[])
+  // useEffect(() => {
+  //   if (localStorage.getItem('token') && localStorage.getItem("user") ) {
+  //     // navigate("/dashboard");
+  //   }
+  // },[])
 
   return (
     <div className='w-[100%] h-full bg-[#E5E5E5] ' >
-      <div className='w-11/12 h-full mx-auto ' >
-        <Routes>
-           <Route path="/" element={
+      <Routes>
+      <Route path="/dashboard" element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+           }/>
+            <Route path="/" element={
              <OpenRoute>
             <HomePage />
             </OpenRoute>
            }/>
+      </Routes>
+      <div className='w-11/12 h-full mx-auto ' >
+        <Routes>
            <Route path="/register" 
            element={
             <OpenRoute>
@@ -35,10 +43,8 @@ function App() {
             </OpenRoute>
            }/>
            <Route path="/login" element={<Login />}/>
-           <Route path="/dashboard" element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
+           <Route path="/update-sale/:id" element={
+              <UpdateSale />
            }/>
            <Route path="/admin-dashboard" 
            element={

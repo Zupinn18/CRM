@@ -2,44 +2,37 @@ const mongoose = require("mongoose");
 
 const saleSchema = new mongoose.Schema({
         ownerName:{
-            type:String,
-            required:true,
+            type:String
         },
         date:{
-            type:Date,
-            required:true,
+            type:Date
         },
         vNumber:{
-            type:String,
-            required:true,
+            type:String
         },
         load:{
-            type:Number,
-            required:true,
+            type:Number
         },
         vLoad:{
-            type:Number,
-            required:true,
+            type:Number
         },
         netWeight:{
-            type:Number,
-            required:true,
+            type:Number
         },
         material:{
-            type:String,
-            required:true,
+            type:String
+        },
+        time:{
+            type:Date
         },
         paymentMode:{
-            type:String,
-            required:true,
+            type:String
         },
         advanceAmount:{
-            type:Number,
-            required:true,
+            type:Number
         },
         amount:{
-            type:Number,
-            required:true,
+            type:Number
         },
         LastUpdatedBy:{
             type:String

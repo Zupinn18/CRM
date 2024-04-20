@@ -5,7 +5,7 @@ const {
     createSale,
     updateSale,
     getAllSales,
-    getSale,
+    getSale
 } = require("../Controllers/Sale.js");
 
 router.post("/create-sale",createSale);

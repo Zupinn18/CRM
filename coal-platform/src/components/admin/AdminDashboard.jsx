@@ -7,7 +7,9 @@ import { setLoading } from '../../slices/authSlice.js';
 import toast from 'react-hot-toast';
 import { formateDate } from '../../utils/formateDate.jsx';
 import './AdminTable.css';
+import TodaySale from "../../pages/Dashboard/SaleComponent/TodaySale.jsx"
 import { Link } from 'react-router-dom';
+import AdminTodaySale from './AdminTodaySale.jsx';
 
 const AdminDashboard = () => {
 
@@ -16,7 +18,7 @@ const AdminDashboard = () => {
   const weeks = ["Sunday","Monday","Tuesday","Thursday","Friday","Saturday"];
   const d = new Date();
   let month = months[d.getMonth()];
-  let day = weeks[d.getDay()];
+  let day = weeks[d.getDay()-1];
   let dat = d.getDate();
 
   const [saleData, setSaleData] = useState([]);
@@ -47,16 +49,24 @@ const AdminDashboard = () => {
 
   return (
     <div className='w-full h-[100%] flex flex-col items-center font-poppins pb-[100px] pt-[20px]' >
-      <div className=' w-full h-[100vh] flex flex-col md:items-center lg:w-full' >
+      <div className=' w-full h-[100%] flex flex-col md:items-center lg:w-full' >
           <p className='font-medium lg:text-[46px] text-center text-2xl mb-5 ' >Welcome to Admin <span className=' text-2xl font-bold lg:text-[46px] text-[#5D59D9] font-poppins '
                 >Dashboard</span> </p>
           <p className=' text-center font-semibold text-md lg:text-2xl ' >CRM Portal</p>
+          <div className=' flex flex-col sm:flex-row sm:gap-5  ' >
           <Link to="/register" >
                   <button 
-                          className='w-full bg-[rgb(93,89,217)] mt-10 font-semibold text-white px-2 py-3 rounded-md
+                          className='w-full bg-[rgb(93,89,217)] mt-10 font-semibold text-white px-4 py-3 rounded-md
                           hover:bg-[#3e3aa3] transition-all duration-300' 
                   >Create a New Account</button>
           </Link>
+          <Link to="/login" >
+                  <button 
+                          className='w-full bg-[rgb(93,89,217)] mt-10 font-semibold text-white px-4 py-3 rounded-md
+                          hover:bg-[#3e3aa3] transition-all duration-300' 
+                  >Login</button>
+          </Link>
+          </div>
 
           <div className='w-full mt-[40px]' >
               <div className='flex flex-col sm:flex-row justify-between ' >
@@ -68,7 +78,15 @@ const AdminDashboard = () => {
                 </div>
               </div>
                 <div className='w-full h-[1px] bg-[#BFBFBF] mt-3 mb-5' ></div>
-                <AdminTable/>
+                  <h2 className='font-bold text-2xl text-[#5D59D9] font-poppins mt-[50px] '
+                  >Today's Data</h2>
+                  <div className='w-full h-[1px] bg-[#BFBFBF] mt-3 mb-5 ' ></div>
+                  <AdminTodaySale/>
+
+                  <h2 className='font-bold text-2xl text-[#5D59D9] font-poppins mt-[50px] '
+                  >All Data</h2>
+                  <div className='w-full h-[1px] bg-[#BFBFBF] mt-3 mb-5 ' ></div>
+                  <AdminTable/>
           </div>
       </div>
     </div>

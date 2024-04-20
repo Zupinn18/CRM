@@ -38,9 +38,10 @@ const Home = () => {
       setToggle(!toggle);
     }
   return (
-    <div className='w-[100%] h-[100%] pt-4 font-poppins flex flex-col gap-[50px] ' >
+    <div className='w-[100%] relative h-[100%] font-poppins flex flex-col gap-[50px] ' >
         {/* header Part */}
-       <div className=' relative flex lg:items-center flex-col lg:justify-between bg-[white] rounded-lg lg:flex-row ' >
+       <div className='fixed w-full flex lg:items-center flex-col lg:justify-between bg-[white] 
+       border-b-[black] border-b-[1px] lg:flex-row ' >
                 {/* member name */}
                 <div className='flex items-center gap-2 mt-5 mb-5 lg:mb-0 lg:mt-0 ' >
                     <img src={userImg} loading='lazy' alt='User IMG'  width="80px" />
@@ -82,9 +83,11 @@ const Home = () => {
                         </div>
       </Link> */}
        {/* content part */}
-       { formtype === 'rbm' && (<Rbm/>)}
-       { formtype === 'sale' && (<Sale/>)}
-       { formtype === 'plantExpense' && (<PlantExpense/>)}
+        <div className='w-11/12 h-full mx-auto mt-[150px] ' >
+        { formtype === 'rbm' && (<Rbm/>)}
+        { formtype === 'sale' && (<Sale/>)}
+        { formtype === 'plantExpense' && (<PlantExpense/>)}
+          </div>
        
     </div>
   )

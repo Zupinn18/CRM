@@ -79,9 +79,10 @@ const Login = () => {
                 >Login</button>
             </form>
             <p className='mt-5 text-center text-[16px] text-black ' >Don't Have an account ? {" "}
-                <Link to="/register">
+                {/* <Link to="/register">
                     <span className="text-[#5D59D9]" >Register</span>
-                </Link>
+                </Link> */}
+                <span className="text-[#5D59D9]"  >Contact Admin</span>
             </p>
         </div>
     </div>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {createSale} from '../../../services/saleAPI';
 import {toast} from "react-hot-toast"
 import SaleTable from "./SaleTable.jsx";
+import TodaySale from './TodaySale.jsx';
 
 const CreateSale = () => {
 
@@ -234,6 +235,10 @@ const CreateSale = () => {
                 >Submit Data</button>
             </form>
 
+            <h2 className='font-bold text-4xl text-[#5D59D9] font-poppins mt-[50px] '
+            >Today's Sale Data</h2>
+            <div className='w-full h-[1px] bg-[#BFBFBF] mt-3 mb-5 ' ></div>
+            <TodaySale/>
             <h2 className='font-bold text-4xl text-[#5D59D9] font-poppins mt-[50px] '
             >All Sales Data</h2>
             <div className='w-full h-[1px] bg-[#BFBFBF] mt-3 mb-5 ' ></div>

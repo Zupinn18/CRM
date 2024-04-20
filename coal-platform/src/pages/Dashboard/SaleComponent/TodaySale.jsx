@@ -10,9 +10,10 @@ import { formateTime } from '../../../utils/formateTime.js';
 import "./SaleTable.css";
 import { Link } from 'react-router-dom';
 
-const SaleTable = () => {
+const TodaySale = () => {
     const [saleData, setSaleData] = useState([]);
     const {loading} = useSelector((state) => state.auth);
+    
     const dispatch = useDispatch();
    
     const getAllSales = async()=>{
@@ -37,8 +38,14 @@ const SaleTable = () => {
         getAllSales();
     },[])
 
+    const todayDate = new Date().toISOString().split('T')[0];
+
+    // Filter data for today's date
+    const todayData = saleData.filter(item => item.date.startsWith(todayDate));
+
+    
     let paidMoney=0,totalMoney=0;
-    saleData.forEach(obj => {
+    todayData?.forEach(obj => {
       if(obj.advanceAmount!==0){
         paidMoney+=obj.advanceAmount;
       }
@@ -50,7 +57,8 @@ const SaleTable = () => {
     });
 
   return (
-          <div className="flex flex-col" >
+    <div>
+         <div className="flex flex-col" >
             <div >
               <div className="p-1.5 w-full inline-block align-middle">
                 <div className="overflow-hidden border rounded-lg">
@@ -161,7 +169,7 @@ const SaleTable = () => {
                     }
                     {
                         !loading && (
-                        saleData.map((sale,index)=>(
+                            todayData.map((sale,index)=>(
                             <tbody className="divide-y divide-gray-200" key={index} >
                 <tr className='bg-gray-50' >
                         <td className="px-4
@@ -278,7 +286,8 @@ const SaleTable = () => {
               </div>
             </div>
           </div>
+    </div>
   )
-};
+}
 
-export default SaleTable
+export default TodaySale

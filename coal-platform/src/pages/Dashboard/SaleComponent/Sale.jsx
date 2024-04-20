@@ -8,9 +8,9 @@ const Sale = () => {
   const handleCreateSale = () =>{
     setSaleAction('create');
   }
-  const handleUpdateSale = () =>{
-    setSaleAction('update');
-  }
+  // const handleUpdateSale = () =>{
+  //   setSaleAction('update');
+  // }
 
   return (
   <div className=' h-[100%] font-poppins pb-[50px] ' >
@@ -22,9 +22,9 @@ const Sale = () => {
             <button className={` ${saleAction === 'create' ? "bg-[rgb(93,89,217)] text-white hover:bg-[#3e3aa3] " : 
             "bg-[#BFBFBF] text-black hover:bg-[#ada9a9] " } text-md font-semibold px-2 py-3 rounded-md
                   transition-all duration-300`} onClick={handleCreateSale}  >Create Sale</button>
-            <button className={` ${saleAction === 'update' ? "bg-[rgb(93,89,217)] text-white hover:bg-[#3e3aa3] " : 
+            {/* <button className={` ${saleAction === 'update' ? "bg-[rgb(93,89,217)] text-white hover:bg-[#3e3aa3] " : 
             "bg-[#BFBFBF] text-black hover:bg-[#ada9a9] " } text-md font-semibold px-2 py-3 rounded-md
-                  transition-all duration-300`} onClick={handleUpdateSale} >Update Sale</button>
+                  transition-all duration-300`} onClick={handleUpdateSale} >Update Sale</button> */}
         </div>
       
         {/* content or fields */}
@@ -33,11 +33,11 @@ const Sale = () => {
             <CreateSale/>
           )
         }
-        {
+        {/* {
           saleAction === 'update' && (
             <UpdateSale/>
           )
-        }
+        } */}
 
 
     </div>

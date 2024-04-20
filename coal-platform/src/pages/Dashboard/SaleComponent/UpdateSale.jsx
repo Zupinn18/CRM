@@ -1,18 +1,50 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {updateSale} from '../../../services/saleAPI';
 import {toast} from "react-hot-toast";
 import SaleTable from './SaleTable';
-import { setLoading } from '../../../slices/authSlice';
+import { setLoading } from '../../../slices/authSlice.js';
 import { apiConnector } from '../../../services/apiConnector';
 import { BASE_URL } from '../../../BaseURL';
+import userImg from "../../../assests/user1.png";
+import Rbm from '../RbmComponent/Rbm.jsx';
+import Sale from "../SaleComponent/Sale.jsx";
+import PlantExpense from "../PlantExpensesComponents/PlantExpense.jsx";
+import { logout } from '../../../services/authAPI.js';
+import { VscSignOut } from "react-icons/vsc"
+import { Link } from 'react-router-dom';
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const UpdateSale = () => {
   const navigate = useNavigate();
     const dispatch = useDispatch();
+    let {id} = useParams();
+    console.log("id is ", id);
 
     const { user } = useSelector((state) => state.profile)
+
+    const [formtype, setFormType] = useState('sale');
+    const [toggle, setToggle] = useState(false);
+
+    const handleSale = (e) =>{
+        e.preventDefault();
+        setFormType('sale');
+    }
+
+    const handleRBM = (e) =>{
+        e.preventDefault();
+        setFormType('rbm');
+    }
+
+    const handlePlant = (e) =>{
+        e.preventDefault();
+        setFormType('plantExpense');
+    }
+
+    const handleToggle = () =>{
+      setToggle(!toggle);
+    }
 
     const [formData, setFormData] = useState({
         ownerName:"",
@@ -59,7 +91,7 @@ const UpdateSale = () => {
            
         if(formData.advanceAmount){
           dispatch(updateSale(
-            selectedSaleId,
+            id,
             formData.ownerName,
             formData.load,
             formData.material,
@@ -72,7 +104,7 @@ const UpdateSale = () => {
            navigate));
             }else{
               dispatch(updateSale(
-                selectedSaleId,
+                id,
                 formData.ownerName,
                 formData.load,
                 formData.material,
@@ -131,7 +163,8 @@ const UpdateSale = () => {
     dispatch(setLoading(true));
     try {
      
-      const response = await apiConnector("get",`${BASE_URL}/sale/get-one-sale/${selectedSaleId}`);
+      // const response = await apiConnector("get",`${BASE_URL}/sale/get-one-sale/${selectedSaleId}`);
+      const response = await apiConnector("get",`${BASE_URL}/sale/get-one-sale/${id}`);
       
         if(!response.data.success){
             throw new Error(response.data.message);
@@ -148,19 +181,28 @@ const UpdateSale = () => {
     dispatch(setLoading(false));
   }
 
+  // useEffect(()=>{
+  //   getOneSale();
+  // },[selectedSaleId])
+
   useEffect(()=>{
     getOneSale();
-  },[selectedSaleId])
+  },[])
 
 
 
   return (
-    <div>
+    <div className='flex flex-col gap-10 pt-5 pb-10' >
+      <div className='w-full flex flex-col md:items-center lg:w-full ' >
+      <p className='font-medium lg:text-[56px] text-center text-2xl mb-5 ' >Update <span className=' text-2xl font-bold lg:text-[46px] text-[#5D59D9] font-poppins '
+                >Sale</span> </p>
+          <p className=' text-center font-semibold text-md lg:text-2xl ' >CRM Portal</p>
+      </div>
             <form>
                 <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[50px] ' >
                 <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
                             <label id='vNumber' className=' text-[18px] font-semibold font-poppins ' >V. Number</label>
-                            <select
+                            {/* <select
                                 id='number'
                                 name='vNumber'
                                 // value={formData.vNumber}
@@ -173,7 +215,14 @@ const UpdateSale = () => {
                                   <option key={item._id} value={item._id}>{item.vNumber}</option>
                                 ))
                               }
-                            </select>
+                            </select> */}
+                            <input
+                                 id='text'
+                                 name='vNumber'
+                                 value={formData.vNumber}
+                                 onChange={handleInputChange}
+                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            />
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
                             <label id='ownerName' className=' text-[18px] font-semibold font-poppins ' >Owner Name</label>
@@ -300,10 +349,10 @@ const UpdateSale = () => {
                 >Update Data</button>
             </form>
 
-            <h2 className='font-bold text-4xl text-[#5D59D9] font-poppins mt-[50px] '
+            {/* <h2 className='font-bold text-4xl text-[#5D59D9] font-poppins mt-[50px] '
             >All Sales Data</h2>
             <div className='w-full h-[1px] bg-[#BFBFBF] mt-3 mb-5 ' ></div>
-            <SaleTable/>
+            <SaleTable/> */}
 
         </div>
   )
