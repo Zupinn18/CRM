@@ -4,6 +4,7 @@ import LoginImg from "../assests/log.png";
 import logo from "../assests/mainLogo.png";
 
 import { RxHamburgerMenu } from "react-icons/rx";
+import Login from './Login';
 
 const HomePage = () => {
     const [toggle, setToggle] = useState(false);
@@ -13,7 +14,7 @@ const HomePage = () => {
     }
 
   return (
-   <div className='w-full h-[100vh] flex flex-col gap-4  ' >
+   <div className='w-full h-full flex flex-col gap-4  ' >
     <div className=' hidden w-[97%] mx-auto md:flex justify-between gap-[100px] font-poppins pt-3 ' >
         <div className='flex gap-5 ' >
             <Link to="/personal" ><p className=' border-b-[2px] border-b-[#5D59D9] ' >Personal</p></Link>
@@ -43,7 +44,7 @@ const HomePage = () => {
                 <RxHamburgerMenu onClick={handleToggle} className=' bg-red-500 text-white px-2 py-2 rounded-lg w-[40px] h-[40px] cursor-pointer font-bold ' />
             </div>
             <div className=' hidden md:block ' >
-            <Link to="/login" >
+            <Link to="/" >
                 <button 
                         className='w-full bg-white font-semibold text-black px-6 py-2 rounded-md
                         hover:bg-green-500 hover:text-white transition-all duration-300 ' 
@@ -52,12 +53,12 @@ const HomePage = () => {
             </div>
        </div>
     </div>
-    <div className='w-full h-[450px]  md:mt-[-16px] ' >
+    <div className='w-full h-full  md:mt-[-16px] ' >
         <div className=' w-[98%] md:w-[97%] mx-auto flex gap-[200px] font-poppins items-center justify-center ' >
-            <div className='hidden lg:block w-[30%]' >
+            <div className='hidden lg:block w-[60%]' >
             <img src={LoginImg} className='w-[400px]' />
             </div>
-            <div className='w-full lg:w-[25%] flex flex-col gap-2 px-10 py-8 bg-white rounded-lg ' >
+            {/* <div className='w-full lg:w-[%] flex flex-col gap-2 px-10 py-8 bg-white rounded-lg ' >
                 <p className='font-semibold text-xl ' >Welcome to CRM,</p>
                 <p className='text-sm text-[#5D59D9] font-poppins '
         >Start your Journey with us</p>
@@ -67,7 +68,9 @@ const HomePage = () => {
                         hover:bg-[#3632ad] hover:text-white transition-all duration-300 ' 
                 >Sign In</button>
             </Link>
-            </div>
+            <Login/>
+            </div> */}
+            <Login/>
         </div>
     </div>
 

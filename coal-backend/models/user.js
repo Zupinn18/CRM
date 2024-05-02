@@ -19,6 +19,11 @@ const userSchema = new mongoose.Schema({
         token: {
             type : String,
         },
+        accountType: {
+            type: String,
+            enum: ['Admin', 'User'],
+            required: true
+        },
 });
 
 module.exports = mongoose.model("User",userSchema);

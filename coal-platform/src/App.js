@@ -10,15 +10,21 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import HomePage from './pages/HomePage';
 import AdminDashboard from './components/admin/AdminDashboard';
 import UpdateSale from './pages/Dashboard/SaleComponent/UpdateSale';
+import { useSelector } from 'react-redux';
 
 function App() {
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('token') && localStorage.getItem("user") ) {
-  //     // navigate("/dashboard");
-  //   }
-  // },[])
+  const { user } = useSelector((state) => state.profile)
+  // console.log("user is ", user);
+  useEffect(() => {
+    if (localStorage.getItem('token') && localStorage.getItem("user") ) {
+      if(user.accountType === 'User'){
+         navigate("/dashboard");
+      }else if(user.accountType === 'Admin'){
+        navigate("/admin-dashboard");
+      }
+    }
+  },[])
 
   return (
     <div className='w-[100%] h-full bg-[#E5E5E5] ' >
@@ -33,24 +39,27 @@ function App() {
             <HomePage />
             </OpenRoute>
            }/>
+           <Route path="/admin-dashboard" 
+           element={
+            <PrivateRoute>
+            <AdminDashboard />
+            </PrivateRoute>
+           }/>
       </Routes>
       <div className='w-11/12 h-full mx-auto ' >
         <Routes>
            <Route path="/register" 
            element={
-            <OpenRoute>
+            <PrivateRoute>
             <Register />
-            </OpenRoute>
+            </PrivateRoute>
            }/>
            <Route path="/login" element={<Login />}/>
-           <Route path="/update-sale/:id" element={
-              <UpdateSale />
-           }/>
-           <Route path="/admin-dashboard" 
-           element={
-            <OpenRoute>
-            <AdminDashboard />
-            </OpenRoute>
+           <Route path="/update-sale/:id"
+            element={
+              <PrivateRoute>
+                 <UpdateSale />
+              </PrivateRoute>
            }/>
         </Routes>
       </div>

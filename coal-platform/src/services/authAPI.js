@@ -5,7 +5,7 @@ import { apiConnector } from "./apiConnector";
 import { BASE_URL } from "../BaseURL.js";
 
 
-export function register(fullName,email,password,confirmPassword,phoneNumber, navigate) {
+export function register(fullName,email,password,confirmPassword,phoneNumber, accountType, navigate) {
 
     return async (dispatch) => {
         const toastId = toast.loading("Loading...")
@@ -17,6 +17,7 @@ export function register(fullName,email,password,confirmPassword,phoneNumber, na
                 password,
                 confirmPassword,
                 phoneNumber,
+                accountType,
             });
 
             if(!response.data.success){
@@ -24,7 +25,7 @@ export function register(fullName,email,password,confirmPassword,phoneNumber, na
             }
 
             toast.success("User Registration Successfull");
-            navigate("/login");
+            navigate("/");
 
         } catch (error) {
             console.log("SIGNUP API ERROR.............", error)
@@ -57,7 +58,11 @@ export function login(email, password, navigate){
             localStorage.setItem("token", JSON.stringify(response.data.token))
             localStorage.setItem("user", JSON.stringify(response.data.user))
 
-            navigate("/dashboard");
+            if(response.data.user.accountType === 'Admin'){
+                navigate("/admin-dashboard");
+            }else if(response.data.user.accountType === 'User'){
+                navigate("/dashboard");
+            }
 
         } catch (error) {
             console.log("LOGIN API ERROR..............", error);

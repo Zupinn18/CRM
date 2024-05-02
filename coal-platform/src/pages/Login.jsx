@@ -25,23 +25,55 @@ const Login = () => {
         dispatch(login(formData.email, formData.password, navigate))
     }
 
+//     const [accountType, setAccountType] = useState('User');
+
+//   const handleToggleAdmin = (e) => {
+//     e.preventDefault();
+//         setAccountType('Admin');
+//   };
+
+//   const handleToggleUser = (e) => {
+//     e.preventDefault();
+//         setAccountType('User');
+//   };
+
   return (
-    <div className='w-[100%] h-[100%] flex justify-between gap-[100px] font-poppins pb-20' >
+    <div className='w-[100%] h-[60%] m-6 flex justify-between gap-[100px] font-poppins pb-20' >
         {/* image */}
-        <div className='hidden lg:flex items-center' >
+        {/* <div className='hidden lg:flex items-center' >
             <img src={LoginImg} width="600px" loading='lazy' alt='Side Image' />
-        </div>
+        </div> */}
         {/* Content */}
-        <div className='w-full lg:w-[60%] h-[100%] mt-[40px] bg-[white] rounded-md flex flex-col px-10 py-10 ' >
-            <p className='font-medium text-[36px]' >Welcome to CRM</p>
-            <h2 className='font-bold text-4xl text-[#5D59D9] font-poppins '
+        <div className='w-full lg:w-[100%] h-[100%] bg-[white] rounded-md flex flex-col px-8 py-8 ' >
+            <p className='font-medium text-[22px]' >Welcome to CRM</p>
+            <h2 className='font-bold text-sm text-[#5D59D9] font-poppins '
             >Login to your Account</h2>
-            <div className='w-full h-[1px] bg-[#BFBFBF] mt-7 mb-10 ' ></div>
+            <div className='w-full h-[1px] bg-[#BFBFBF] mt-7 ' ></div>
             <form className='flex flex-col gap-2' >
-                <div className='flex gap-8 bg-[#ECECEC] px-6 py-4 rounded-md ' >
-                    <div className='flex items-center' >
+            {/* <div className="flex p-1 gap-x-1 my-6 rounded-full max-w-max">
+                <button
+                        className={`${accountType === "User"
+                        ?"bg-black text-white" 
+                        : "bg-transparent text-gray-600"}
+                        py-2 px-5 rounded-full transition-all duration-200`}
+                        onClick={handleToggleUser}
+                    >
+                        User
+                </button>
+                <button
+                    className={`${accountType === "Admin"
+                    ? "bg-black text-white"
+                    : "bg-transparent text-gray-400"} 
+                    py-2 px-5 rounded-full transition-all duration-200`}
+                    onClick={handleToggleAdmin}
+                >
+                    Admin
+                </button>
+            </div> */}
+                <div className='flex gap-8 bg-[#ECECEC] mt-4 px-6 py-4 rounded-md ' >
+                    {/* <div className='flex items-center' >
                         <img src={mailImg} alt='Email Image' loading='lazy' />
-                    </div>
+                    </div> */}
                     <div className='w-[100%] flex flex-col gap-1' >
                         <label id='email' className=' font-poppins ' >Email</label>
                         <input
@@ -51,14 +83,14 @@ const Login = () => {
                             placeholder='abc@gmail.com'
                             value={formData.email}
                             onChange={handleInputChange}
-                            className=' w-[100%] rounded-md bg-transparent font-bold text-[16px] outline-none '
+                            className=' w-[100%] rounded-md bg-transparent font-bold text-[14px] outline-none '
                         />
                     </div>
                 </div>
-                <div className='flex gap-8 bg-[#ECECEC] px-6 py-4 rounded-md mt-4 ' >
-                    <div className='flex items-center' >
+                <div className='flex gap-8 bg-[#ECECEC] px-6 py-4 rounded-md mt-2 ' >
+                    {/* <div className='flex items-center' >
                         <img src={PassImg} loading='lazy' alt='Password Image' />
-                    </div>
+                    </div> */}
                     <div className='w-[100%] flex flex-col gap-1' >
                         <label id='password' className=' font-poppins ' >Password</label>
                         <input
@@ -68,7 +100,7 @@ const Login = () => {
                             placeholder='Enter your password'
                             value={formData.password}
                             onChange={handleInputChange}
-                            className=' w-[100%] rounded-md bg-transparent font-bold text-[16px] outline-none '
+                            className=' w-[100%] rounded-md bg-transparent font-bold text-[14px] outline-none '
                         />
                     </div>
                 </div>

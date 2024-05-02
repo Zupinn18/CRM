@@ -30,8 +30,20 @@ const Register = () => {
             [e.target.name]: e.target.value
     })}
 
+    const [accountType, setAccountType] = useState('User');
+
+    const handleToggleAdmin = (e) => {
+      e.preventDefault();
+          setAccountType('Admin');
+    };
+  
+    const handleToggleUser = (e) => {
+      e.preventDefault();
+          setAccountType('User');
+    };
+
     const handleSubmit = (e) =>{
-        e.preventDefault()
+        e.preventDefault();
 
         if(formData.password !== formData.confirmPassword) {
             toast.error("Passwords Do Not Match")
@@ -42,7 +54,9 @@ const Register = () => {
             formData.email, 
             formData.password,
             formData.confirmPassword,
-            formData.phoneNumber, navigate));
+            formData.phoneNumber,
+            accountType,
+             navigate));
         dispatch(setSignupData(formData));
 
         //Reset 
@@ -51,9 +65,10 @@ const Register = () => {
             email: "",
             password: "",
             confirmPassword: "",
-            phoneNumber:"",
+            phoneNumber:""
         })
     }
+
 
   return (
     <div className='w-full h-full flex justify-between gap-[100px] font-poppins pb-10' >
@@ -68,6 +83,26 @@ const Register = () => {
         >Create an Account</h2>
         <div className='w-full h-[1px] bg-[#BFBFBF] mt-7 mb-10 ' ></div>
         <form className='flex flex-col gap-2' >
+        <div className="flex p-1 gap-x-1 my-6 rounded-full max-w-max">
+                <button
+                        className={`${accountType === "User"
+                        ?"bg-black text-white" 
+                        : "bg-transparent text-gray-600"}
+                        py-2 px-5 rounded-full transition-all duration-200`}
+                        onClick={handleToggleUser}
+                    >
+                        User
+                </button>
+                <button
+                    className={`${accountType === "Admin"
+                    ? "bg-black text-white"
+                    : "bg-transparent text-gray-400"} 
+                    py-2 px-5 rounded-full transition-all duration-200`}
+                    onClick={handleToggleAdmin}
+                >
+                    Admin
+                </button>
+            </div>
                 <div className='flex gap-6 bg-[#ECECEC] px-6 py-4 rounded-md mt-4' >
                     <div className='flex items-center ' >
                         <img src={userImg} width="40px" alt='user Image' loading='lazy' />

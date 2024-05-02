@@ -13,10 +13,11 @@ exports.register = async(req,res)=>{
             email,
             password,
             confirmPassword,
-            phoneNumber
+            phoneNumber,
+            accountType
         } = req.body;
         // Validate fields
-        if(!fullName || !email || !password || !confirmPassword){
+        if(!fullName || !email || !password || !confirmPassword || !accountType){
             return res.status(403).json({
                 success:false,
                 message:'All fields are mandatory !, Please Try Again'
@@ -49,7 +50,8 @@ exports.register = async(req,res)=>{
             fullName,
             email,
             password: hashedPassword,
-            phoneNumber
+            phoneNumber,
+            accountType
         });
 
         return res.status(200).json({
@@ -95,6 +97,7 @@ exports.login = async(req,res)=>{
             const payLoad = {
                 email: user.email,
                 id: user._id,
+                accountType: user.accountType,
             }
 
             const token = jwt.sign(payLoad, process.env.JWT_SECRET, {

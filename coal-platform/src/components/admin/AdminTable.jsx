@@ -35,9 +35,52 @@ const AdminTable = () => {
     useEffect(()=>{
         getAllSales();
     },[])
+    
+    const [timeRange, setTimeRange] = useState('');
 
-    let paidMoney=0,totalMoney=0;
-    saleData.forEach(obj => {
+  const filterData = (timeRange) => {
+    const today = new Date();
+    let startDate = new Date();
+
+    switch (timeRange) {
+      case 'last3days':
+        startDate.setDate(today.getDate() - 3);
+        break;
+      case '1week':
+        startDate.setDate(today.getDate() - 7);
+        break;
+      case '2weeks':
+        startDate.setDate(today.getDate() - 14);
+        break;
+      case '1month':
+        startDate.setMonth(today.getMonth() - 1);
+        break;
+      case '3months':
+          startDate.setMonth(today.getMonth() - 3);
+          break;
+      case '6months':
+        startDate.setMonth(today.getMonth() - 6);
+        break;
+      case '1year':
+          startDate.setMonth(today.getMonth() - 12);
+          break;
+      default:
+        startDate = null;
+    }
+
+    if (startDate) {
+      return saleData.filter(item => 
+        ( item.LastUpdatedAt ? new Date(item.LastUpdatedAt ) : new Date(item.date) ) >= startDate &&
+         ( item.LastUpdatedAt ? new Date(item.LastUpdatedAt ) : new Date(item.date) ) <= today);
+    } else {
+      return saleData;
+    }
+  };
+
+  const filteredData = filterData(timeRange);
+
+  let paidMoney=0,totalMoney=0;
+  filteredData.forEach(obj => {
       if(obj.advanceAmount!=0){
         paidMoney+=obj.advanceAmount;
       }
@@ -48,10 +91,26 @@ const AdminTable = () => {
       totalMoney+=obj.amount;
     });
 
-
   return (
-    <div className="flex flex-col " >
-    <div >
+    <div className="flex flex-col gap-5 " >
+     <div className=' pr-3 w-full align-middle flex justify-end ' >
+        <select
+        id="timeRange"
+        value={timeRange}
+        onChange={(e) => setTimeRange(e.target.value)}
+        className=' px-2 py-1 md:px-4 md:py-2 text-md  rounded-md md:text-xl shadow-2xl border-slate-400 border-[1px] outline-none cursor-pointer '
+        >
+            <option value="" >Apply Filter</option>
+          <option value="last3days">Last 3 Days</option>
+          <option value="1week">1 Week</option>
+          <option value="2weeks">2 Weeks</option>
+          <option value="1month">1 Month</option>
+          <option value="3months">3 Months</option>
+          <option value="6months">6 Months</option>
+          <option value="1year">1 Year</option>
+          </select>
+     </div>
+    <div>
       <div className="p-1.5 w-full inline-block align-middle">
         <div className="overflow-hidden border rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
@@ -153,7 +212,7 @@ const AdminTable = () => {
             }
             {
                 !loading && (
-                saleData.map((sale,index)=>(
+                  filteredData.map((sale,index)=>(
                     <tbody className="divide-y divide-gray-200" key={index} >
         <tr className='bg-gray-50' >
                 <td className="px-4
