@@ -36,16 +36,27 @@ const ExpenseTable = () => {
         getAllExpenses();
     },[]);
 
-    let electricityMoney=0,fuelMoney=0,teaMoney=0,internetMoney=0,salaryMoney=0;
-    ExpenseData.forEach(obj => {
+    console.log("expense data is ", ExpenseData);
+
+    let electricityMoney=0,fuelMoney=0,formenMoney=0,munshiSalaryMoney=0,salaryMoney=0, 
+    plantDumpMoney=0, plantExpenseMoney=0,
+    plantHMMoney=0, plantJCBMoney=0, plantTractorMoney=0, rentMoney=0, royaltyMoney=0;
+    ExpenseData?.forEach(obj => {
       electricityMoney+=obj.electricity;
-      fuelMoney+=obj.fuel;
-      teaMoney+=obj.tea;
-      internetMoney+=obj.internet;
-      salaryMoney+=obj.salary;
+      fuelMoney+=obj.diesel;
+      formenMoney+=obj.formen;
+      munshiSalaryMoney+=obj.munshiSalary;
+      plantDumpMoney+=obj.plantDumper;
+      plantExpenseMoney += obj.plantExpense;
+      plantHMMoney += obj.plantHM;
+      plantJCBMoney += obj.plantJCB;
+      plantTractorMoney += obj.plantTractor;
+      rentMoney += obj.rent;
+      royaltyMoney += obj.royalty;
     });
 
-    let totalMoney = electricityMoney + fuelMoney + teaMoney + internetMoney + salaryMoney;
+    let totalMoney = electricityMoney + fuelMoney + formenMoney + munshiSalaryMoney + plantDumpMoney 
+    + plantExpenseMoney + plantHMMoney + plantJCBMoney + plantTractorMoney + rentMoney + royaltyMoney;
 
   return (
     <div className="flex flex-col " >
@@ -57,64 +68,82 @@ const ExpenseTable = () => {
               <tr >
                 <th
                   scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left uppercase "
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
                 >
                   Date
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left uppercase "
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
+                >
+                  Diesel
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
                 >
                   Electricity
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left uppercase "
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
                 >
-                  Tea
+                  Formen
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left uppercase "
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
                 >
-                  Internet
+                  Munshi Salary
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left uppercase "
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
                 >
-                  Fuel
+                  Plant Dumper
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left uppercase "
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
                 >
-                  Salary
-                </th>
-                {/* <th
-                  scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left uppercase "
-                >
-                  Paid Amount
+                  Plant Expense
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left uppercase "
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
                 >
-                  Remaining Amount
-                </th> */}
+                  Plant HM
+                </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left  uppercase "
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
+                >
+                  Plant JCB
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
+                >
+                  Plant Tractor
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
+                >
+                  Rent
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-sm font-bold text-left uppercase "
+                >
+                  Royalty
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-sm font-bold text-left  uppercase "
                 >
                   Total Expense
                 </th>
-                {/* <th
-                  scope="col"
-                  className="px-6 py-3 text-sm font-bold text-left  uppercase "
-                >
-                  Action
-                </th> */}
                 
               </tr>
             </thead>
@@ -128,35 +157,47 @@ const ExpenseTable = () => {
             }
             {
                 !loading && (
-                ExpenseData.map((Expense)=>(
+                ExpenseData?.map((Expense)=>(
                     <tbody className="divide-y divide-gray-200" key={Expense._id} >
         <tr className='bg-gray-50' >
                 <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                 {formateDate(Expense?.date)}
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">{`${Expense?.electricity}`}</td>
+                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">{`${Expense.diesel}`}</td>
                 <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                {`${Expense?.tea}`}
+                {`${Expense?.electricity}`}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                {`${Expense?.internet}`}
+                {`${Expense?.formen}`}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                {`${Expense?.fuel}`}
+                {`${Expense?.munshiSalary}`}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                {`${Expense?.salary}`}
+                {`${Expense?.plantDumper}`}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                {`${Expense?.plantExpense}`}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                {`${Expense?.plantHM}`}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                {`${Expense?.plantJCB}`}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                {`${Expense?.plantTractor}`}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                {`${Expense?.rent}`}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                {`${Expense?.royalty}`}
                 </td>
                 <td className="px-6 py-4 text-sm text-red-500 font-semibold whitespace-nowrap">
-                {Expense?.electricity + Expense?.tea + Expense?.internet + Expense?.fuel + Expense?.salary} ₹
+                {Expense?.electricity + Expense?.formen + Expense?.munshiSalary + Expense?.diesel + 
+                Expense?.plantDumper + Expense?.plantHM + Expense?.plantExpense + Expense?.plantJCB + Expense?.plantTractor + Expense?.rent + Expense?.royalty }
                 </td>
-                {/* <td className="px-6 py-4 text-sm font-semibold whitespace-nowrap">
-                  <Link  to="/admin-dashboard" >
-                    <button className=" px-4 py-2 rounded-md  text-white bg-blue-500 hover:bg-blue-600">
-                      Edit
-                    </button>
-                  </Link>
-                </td> */}
               </tr>
             </tbody>
             )))
@@ -168,22 +209,40 @@ const ExpenseTable = () => {
                                 Total
                           </td> 
                           <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap" >
+                            {fuelMoney}
+                          </td>
+                          <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
                             {electricityMoney}
                           </td>
                           <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
-                            {teaMoney}
+                            {formenMoney}
                           </td>
                           <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
-                            {internetMoney}
+                            {munshiSalaryMoney}
                           </td>
                           <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
-                                {fuelMoney}
+                                {plantDumpMoney}
                           </td>
                           <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
-                                {salaryMoney}
+                                {plantExpenseMoney}
+                          </td>
+                          <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
+                                {plantHMMoney}
+                          </td>
+                          <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
+                                {plantJCBMoney}
+                          </td>
+                          <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
+                                {plantTractorMoney}
+                          </td>
+                          <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
+                                {rentMoney}
+                          </td>
+                          <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
+                                {royaltyMoney}
                           </td>
                           <td className="px-6 py-4 text-sm font-bold text-red-600 whitespace-nowrap" >
-                            {totalMoney} ₹
+                            {totalMoney}
                           </td>
                           {/* <td className="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">
                           </td> */}

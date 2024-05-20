@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from "../../Loading/Loader.jsx";
 import toast from 'react-hot-toast';
 import { formateDate } from '../../utils/formateDate.jsx';
-import './AdminTable.css';
+import './RbmTable.css';
 import { formateTime } from '../../utils/formateTime.js';
 
-const AdminTable = () => {
+const RbmTable = () => {
     const [saleData, setSaleData] = useState([]);
     const {loading} = useSelector((state) => state.auth);
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const AdminTable = () => {
     const getAllSales = async()=>{
         dispatch(setLoading(true));
         try {
-            const response = await apiConnector("get",`${BASE_URL}/sale/get-sale`);
+            const response = await apiConnector("get",`${BASE_URL}/rbm/get-rbm`);
 
             if(!response.data.success){
                 throw new Error(response.data.message);
@@ -172,7 +172,7 @@ const AdminTable = () => {
                 >
                   Last Updated Time
                 </th>
-                <th
+                {/* <th
                   scope="col"
                   className="px-4
                    py-3 text-[12px] font-bold text-left uppercase "
@@ -192,7 +192,7 @@ const AdminTable = () => {
                    py-3 text-[12px] font-bold text-left uppercase "
                 >
                   Remaining Amount
-                </th>
+                </th> */}
                 <th
                   scope="col"
                   className="px-4
@@ -252,7 +252,7 @@ const AdminTable = () => {
                     formateTime(sale?.time)
                 }
                 </td>
-                <td className="px-4
+                {/* <td className="px-4
                  py-4 text-[12px] text-gray-800 whitespace-nowrap">
                 {sale?.paymentMode}
                 </td>
@@ -270,8 +270,8 @@ const AdminTable = () => {
                   sale?.amount
                 }
                 </td>)
-                }
-                {
+                } */}
+                {/* {
                   sale?.paymentMode === 'due' ? 
                   (<td className="px-4
                    py-4 text-[12px] text-red-500 font-semibold whitespace-nowrap">
@@ -281,7 +281,7 @@ const AdminTable = () => {
                    py-4 text-[12px] text-red-500 font-semibold whitespace-nowrap">
                 {0}
                 </td>)
-                }
+                } */}
                 <td className="px-4
                  py-4 text-[12px] text-yellow-500 font-semibold whitespace-nowrap">
                 {sale?.amount}
@@ -310,16 +310,15 @@ const AdminTable = () => {
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td></td>
                 <td></td>
-                  <td className="px-4
+                  {/* <td className="px-4
                    py-4 text-[12px] font-bold text-green-600 whitespace-nowrap">
                     {paidMoney}
                   </td>
                   <td className="px-4
                    py-4 text-[12px] font-bold text-red-600 whitespace-nowrap">
                     {totalMoney-paidMoney}
-                  </td>
+                  </td> */}
                   <td className="px-4
                    py-4 text-[12px] font-bold text-yellow-600 whitespace-nowrap" >
                     {totalMoney}
@@ -335,4 +334,4 @@ const AdminTable = () => {
   )
 }
 
-export default AdminTable
+export default RbmTable

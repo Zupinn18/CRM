@@ -58,10 +58,10 @@ export function login(email, password, navigate){
             localStorage.setItem("token", JSON.stringify(response.data.token))
             localStorage.setItem("user", JSON.stringify(response.data.user))
 
-            if(response.data.user.accountType === 'Admin'){
-                navigate("/admin-dashboard");
-            }else if(response.data.user.accountType === 'User'){
-                navigate("/dashboard");
+            if(response?.data.user.accountType === 'Admin'){
+                navigate("/admin-dashboard/my-profile");
+            }else if(response?.data.user.accountType === 'User'){
+                navigate("/dashboard/my-profile");
             }
 
         } catch (error) {

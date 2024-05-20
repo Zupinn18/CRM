@@ -5,11 +5,11 @@ const dailyExpenseSchema = new mongoose.Schema({
             type:Date,
             required:true,
         },
-        salary:{
+        munshiSalary:{
             type:Number,
             required:true,
         },
-        tea:{
+        plantDumper:{
             type:Number,
             required:true,
         },
@@ -17,11 +17,35 @@ const dailyExpenseSchema = new mongoose.Schema({
             type:Number,
             required:true,
         },
-        internet:{
+        rent:{
             type:Number,
             required:true,
         },
-        fuel:{
+        diesel:{
+            type:Number,
+            required:true,
+        },
+        plantExpense:{
+            type:Number,
+            required:true,
+        },
+        plantJCB:{
+            type:Number,
+            required:true,
+        },
+        plantHM:{
+            type:Number,
+            required:true,
+        },
+        plantTractor:{
+            type:Number,
+            required:true,
+        },
+        formen:{
+            type:Number,
+            required:true,
+        },
+        royalty:{
             type:Number,
             required:true,
         },

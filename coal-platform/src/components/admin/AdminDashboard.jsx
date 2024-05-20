@@ -15,6 +15,9 @@ import AdminHeader from './AdminHeader.jsx';
 import AdminDash from './sidePanel/AdminDash.jsx';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { ImCross } from "react-icons/im";
+import FilterNameTable from './FilterNameTable.jsx';
+import RbmTable from './RbmTable.jsx';
+import FilterRbm from './FilterRbm.jsx';
 
 const AdminDashboard = () => {
 
@@ -113,8 +116,14 @@ const AdminDashboard = () => {
           <Link to="/register" >
           <p className='cursor-pointer px-3 py-2 rounded-md transition-all duration-200 hover:bg-slate-200 hover:text-black' >Add New Member</p>
           </Link>
-          <p className={`${menu === 'todayData' ? " bg-slate-400" : "transition-all duration-200 hover:bg-slate-200 hover:text-black"} cursor-pointer px-3 py-2 rounded-md`}  onClick={()=> changeClick('todayData')} >Today's Data</p>
-          <p className={`${menu === 'allData' ? " bg-slate-400" : "transition-all duration-200 hover:bg-slate-200 hover:text-black"} cursor-pointer px-3 py-2 rounded-md`}  onClick={()=> changeClick('allData')} >All Data</p>
+          <p className={`${menu === 'todayData' ? " bg-slate-400" : "transition-all duration-200 hover:bg-slate-200 hover:text-black"} cursor-pointer px-3 py-2 rounded-md`} 
+           onClick={()=> changeClick('todayData')} >Today's Data</p>
+           <p className={`${menu === 'filterName' ? " bg-slate-400" : "transition-all duration-200 hover:bg-slate-200 hover:text-black"} cursor-pointer px-3 py-2 rounded-md`} 
+           onClick={()=> changeClick('filterName')} >Filter Name or V.No - Sale</p>
+          <p className={`${menu === 'allData' ? " bg-slate-400" : "transition-all duration-200 hover:bg-slate-200 hover:text-black"} cursor-pointer px-3 py-2 rounded-md`}  onClick={()=> changeClick('allData')} >Sale All Data</p>
+          <p className={`${menu === 'filterRBM' ? " bg-slate-400" : "transition-all duration-200 hover:bg-slate-200 hover:text-black"} cursor-pointer px-3 py-2 rounded-md`} 
+           onClick={()=> changeClick('filterRBM')} >Filter Name or V.No - Rbm</p>
+          <p className={`${menu === 'rbmData' ? " bg-slate-400" : "transition-all duration-200 hover:bg-slate-200 hover:text-black"} cursor-pointer px-3 py-2 rounded-md`}  onClick={()=> changeClick('rbmData')} >RBM All Data</p>
            {/* logout */}
            <div
                           onClick={() => {
@@ -153,8 +162,18 @@ const AdminDashboard = () => {
                     menu === 'todayData' && "Today's Data"
                   }
                   {
+                    menu === 'filterName' && 'Filter Name or V.Number'
+                  }
+                  {
                     menu === 'allData' && 'All Data'
                   }
+                  {
+                    menu === 'filterRBM' && 'RBM Filter Data'
+                  }
+                  {
+                    menu === 'rbmData' && 'RBM Data'
+                  }
+                  
                   </h2>
                 <div className='flex items-center flex-col sm:items-end' >
                   <p>{day}</p>
@@ -170,7 +189,16 @@ const AdminDashboard = () => {
                   menu === 'todayData' && (<AdminTodaySale/>)
                 }
                 {
+                  menu === 'filterName' && (<FilterNameTable />)
+                }
+                {
                   menu === 'allData' && (<AdminTable/>)
+                }
+                {
+                  menu === 'filterRBM' && (<FilterRbm/>)
+                }
+                {
+                  menu === 'rbmData' && (<RbmTable/>)
                 }
                 </div>
                 {/* <div className='w-full flex justify-end ' > 

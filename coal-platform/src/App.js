@@ -11,17 +11,19 @@ import HomePage from './pages/HomePage';
 import AdminDashboard from './components/admin/AdminDashboard';
 import UpdateSale from './pages/Dashboard/SaleComponent/UpdateSale';
 import { useSelector } from 'react-redux';
+import UpdateRbm from './pages/Dashboard/RbmComponent/UpdateRbm';
 
 function App() {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.profile)
-  // console.log("user is ", user);
+  const { user } = useSelector((state) => state.profile);
+  
   useEffect(() => {
     if (localStorage.getItem('token') && localStorage.getItem("user") ) {
-      if(user.accountType === 'User'){
-         navigate("/dashboard");
-      }else if(user.accountType === 'Admin'){
-        navigate("/admin-dashboard");
+      if(user?.accountType === 'User'){
+         navigate("/dashboard/my-profile");
+      }
+      if(user?.accountType === 'Admin'){
+        navigate("/admin-dashboard/my-profile");
       }
     }
   },[])
@@ -29,7 +31,7 @@ function App() {
   return (
     <div className='w-[100%] h-full bg-[#E5E5E5] ' >
       <Routes>
-      <Route path="/dashboard" element={
+      <Route path="/dashboard/my-profile" element={
             <PrivateRoute>
               <Dashboard />
             </PrivateRoute>
@@ -39,7 +41,7 @@ function App() {
             <HomePage />
             </OpenRoute>
            }/>
-           <Route path="/admin-dashboard" 
+           <Route path="/admin-dashboard/my-profile" 
            element={
             <PrivateRoute>
             <AdminDashboard />
@@ -59,6 +61,12 @@ function App() {
             element={
               <PrivateRoute>
                  <UpdateSale />
+              </PrivateRoute>
+           }/>
+           <Route path="/update-rbm/:id"
+            element={
+              <PrivateRoute>
+                 <UpdateRbm />
               </PrivateRoute>
            }/>
         </Routes>

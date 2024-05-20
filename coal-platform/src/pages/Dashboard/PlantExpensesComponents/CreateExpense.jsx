@@ -11,12 +11,24 @@ const CreateExpense = () => {
 
     const [formData, setFormData] = useState({
         date:'',
-        salary:"",
-        tea:"",
+        munshiSalary:"",
+        plantDumper:"",
         electricity:"",
-        internet:"",
-        fuel:""
+        rent:"",
+        diesel:"",
+        plantExpense:"",
+        plantJCB:"",
+        plantHM:"",
+        plantTractor:"",
+        formen:"",
+        royalty:"",
       });
+
+      const today = Date.now();
+      const curr = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(today)
+      const dateString = curr;
+      const datePart = dateString.split(',')[0];
+      formData.date = datePart;
 
       const handleInputChange = (e) =>{
         setFormData({ ...formData,
@@ -27,27 +39,39 @@ const CreateExpense = () => {
       const handleSubmit = (e) =>{
         e.preventDefault();
         
-        if(!formData.date || !formData.electricity || !formData.fuel || !formData.internet || !formData.salary || !formData.tea){
+        if(!formData.date || !formData.electricity || !formData.diesel || !formData.rent || !formData.munshiSalary || !formData.plantDumper){
           toast.error("All fields are required ");
           return;
         }
 
         dispatch(uploadExpense(
           formData.date,
-          formData.salary,
-          formData.tea,
+          formData.munshiSalary,
+          formData.plantDumper,
           formData.electricity,
-          formData.internet,
-          formData.fuel,
+          formData.rent,
+          formData.diesel,
+          formData.plantExpense,
+          formData.plantJCB,
+          formData.plantHM,
+          formData.plantTractor,
+          formData.formen,
+          formData.royalty,
           navigate,
         ));
 
           formData.date="";
-          formData.salary="";
-          formData.tea="";
+          formData.munshiSalary="";
+          formData.plantDumper="";
           formData.electricity="";
-          formData.internet="";
-          formData.fuel="";
+          formData.rent="";
+          formData.diesel="";
+          formData.plantExpense="";
+          formData.plantJCB="";
+          formData.plantHM="";
+          formData.plantTractor="";
+          formData.formen="";
+          formData.royalty="";
           window.location.reload();
       }
 
@@ -56,37 +80,74 @@ const CreateExpense = () => {
             <form>
                 <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[50px] ' >
                 <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='date' className=' text-[18px] font-semibold font-poppins ' >Date</label>
+                            <label id='plantExpense' className=' text-[18px] font-semibold font-poppins ' >Plant Expenses</label>
                             <input
-                                type='date'
-                                id='date'
-                                name='date'
-                                value={formData.date}
+                                type='number'
+                                id='plantExpense'
+                                name='plantExpense'
+                                value={formData.plantExpense}
                                 onChange={handleInputChange}
+                                placeholder='Enter Plant Expenses'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='salary' className=' text-[18px] font-semibold font-poppins ' >Salary Expense</label>
+                            <label id='munshiSalary' className=' text-[18px] font-semibold font-poppins ' >Munshi Salary</label>
                             <input
                                 type='number'
-                                id='salary'
-                                name='salary'
-                                value={formData.salary}
+                                id='munshiSalary'
+                                name='munshiSalary'
+                                value={formData.munshiSalary}
                                 onChange={handleInputChange}
-                                placeholder='Enter Salary Expense'
+                                placeholder='Enter Munshi Salary'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='tea' className=' text-[18px] font-semibold font-poppins ' >TEA Expense</label>
+                            <label id='plantDumper' className=' text-[18px] font-semibold font-poppins ' >Plant Dumper</label>
                             <input
                                 type='number'
-                                id='tea'
-                                name='tea'
-                                value={formData.tea}
+                                id='plantDumper'
+                                name='plantDumper'
+                                value={formData.plantDumper}
                                 onChange={handleInputChange}
-                                placeholder='Enter TEA Expense'
+                                placeholder='Enter Plant Dumper'
+                                className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            />
+                  </div>
+                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='plantJCB' className=' text-[18px] font-semibold font-poppins ' >Plant JCB</label>
+                            <input
+                                type='number'
+                                id='plantJCB'
+                                name='plantJCB'
+                                value={formData.plantJCB}
+                                onChange={handleInputChange}
+                                placeholder='Enter Plant JCB'
+                                className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            />
+                  </div>
+                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='plantHM' className=' text-[18px] font-semibold font-poppins ' >Plant HM</label>
+                            <input
+                                type='number'
+                                id='plantHM'
+                                name='plantHM'
+                                value={formData.plantHM}
+                                onChange={handleInputChange}
+                                placeholder='Enter Plant HM'
+                                className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            />
+                  </div>
+                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='plantTractor' className=' text-[18px] font-semibold font-poppins ' >Plant Tractor</label>
+                            <input
+                                type='number'
+                                id='plantTractor'
+                                name='plantTractor'
+                                value={formData.plantTractor}
+                                onChange={handleInputChange}
+                                placeholder='Enter Plant Tractor'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
@@ -104,26 +165,50 @@ const CreateExpense = () => {
                             />
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='internet' className=' text-[18px] font-semibold font-poppins ' >Internet Expense</label>
+                            <label id='diesel' className=' text-[18px] font-semibold font-poppins ' >Diesel</label>
                             <input
                                 type='number'
-                                id='internet'
-                                name='internet'
-                                value={formData.internet}
+                                id='diesel'
+                                name='diesel'
+                                value={formData.diesel}
                                 onChange={handleInputChange}
-                                placeholder='Enter Internet Expense'
+                                placeholder='Enter diesel Expense'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='fuel' className=' text-[18px] font-semibold font-poppins ' >Fuel Expense</label>
+                            <label id='formen' className=' text-[18px] font-semibold font-poppins ' >Formen Expense</label>
                             <input
                                 type='number'
-                                id='fuel'
-                                name='fuel'
-                                value={formData.fuel}
+                                id='formen'
+                                name='formen'
+                                value={formData.formen}
                                 onChange={handleInputChange}
-                                placeholder='Enter Fuel Expense'
+                                placeholder='Enter Formen Expense'
+                                className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            />
+                  </div>
+                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='formen' className=' text-[18px] font-semibold font-poppins ' >Royalty</label>
+                            <input
+                                type='number'
+                                id='royalty'
+                                name='royalty'
+                                value={formData.royalty}
+                                onChange={handleInputChange}
+                                placeholder='Enter Royalty'
+                                className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            />
+                  </div>
+                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='rent' className=' text-[18px] font-semibold font-poppins ' >Rent</label>
+                            <input
+                                type='number'
+                                id='rent'
+                                name='rent'
+                                value={formData.rent}
+                                onChange={handleInputChange}
+                                placeholder='Enter Rent'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>

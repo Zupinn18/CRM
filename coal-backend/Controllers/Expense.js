@@ -5,14 +5,20 @@ exports.createExpense = async(req,res)=>{
     try {
         const {
             date,
-            salary,
-            tea,
+            munshiSalary,
+            plantDumper,
             electricity,
-            internet,
-            fuel,
+            rent,
+            diesel,
+            plantExpense,
+            plantJCB,
+            plantHM,
+            plantTractor,
+            formen,
+            royalty,
         } = req.body;
 
-        if(!date || !salary || !tea || !electricity || !internet || !fuel){
+        if(!date || !munshiSalary || !rent || !electricity || !plantDumper || !diesel){
             return res.status(403).json({
                 success:false,
                 message:'All fields are mandatory',
@@ -20,12 +26,18 @@ exports.createExpense = async(req,res)=>{
         }
 
         const expenses = await DailyExpense.create({
-            date,
-            salary,
-            tea,
-            electricity,
-            internet,
-            fuel,
+                    date,
+                    munshiSalary,
+                    plantDumper,
+                    electricity,
+                    rent,
+                    diesel,
+                    plantExpense,
+                    plantJCB,
+                    plantHM,
+                    plantTractor,
+                    formen,
+                    royalty,
         });
 
         return res.status(200).json({

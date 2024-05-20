@@ -8,6 +8,7 @@ const cors = require("cors");
 const UserRoutes = require("./Routes/authRoute.js");
 const SaleRoutes = require("./Routes/saleRoute.js");
 const ExpenseRoutes = require("./Routes/expenseRoute.js");
+const RbmRoutes = require("./Routes/rbmRoute.js");
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -28,6 +29,7 @@ app.use(
 app.use("/api/v1/auth",UserRoutes);
 app.use('/api/v1/sale',SaleRoutes);
 app.use('/api/v1/expense',ExpenseRoutes);
+app.use('/api/v1/rbm',RbmRoutes);
 
 app.get('/', (req,res)=>{
     res.send('Hey, I am Backend Server Route');

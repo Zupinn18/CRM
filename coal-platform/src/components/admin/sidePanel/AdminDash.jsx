@@ -20,10 +20,10 @@ const AdminDash = ({saleData, uniqueVehicleCount, vNumbers}) => {
          bg-white rounded-md border-slate-400 border-[1px] px-7 py-6 ' >
           <p className=' font-bold text-2xl ' >Total Vehicles</p>
           <p className=' font-semibold text-4xl text-green-500  ' >{uniqueVehicleCount}</p>
-          <button className=' bg-[#5D59D9] rounded-md px-4 py-2 text-white self-end
+          {/* <button className=' bg-[#5D59D9] rounded-md px-4 py-2 text-white self-end
            transition-all duration-300 hover:bg-[#4642b9]
           '
-          >View</button>   
+          >View</button>    */}
         </div>
         <div className='flex flex-col gap-2 cursor-pointer h-[200px]
          bg-white rounded-md border-slate-400 border-[1px] px-7 py-6 ' >
