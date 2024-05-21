@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require('express');
 const app = express();
-const dotenv = require("dotenv");
 const dbConnect = require("./Database/database.js");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -10,7 +10,6 @@ const SaleRoutes = require("./Routes/saleRoute.js");
 const ExpenseRoutes = require("./Routes/expenseRoute.js");
 const RbmRoutes = require("./Routes/rbmRoute.js");
 
-dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 
