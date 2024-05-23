@@ -9,6 +9,18 @@ const dailyExpenseSchema = new mongoose.Schema({
             type:Number,
             required:true,
         },
+        munshiName:{
+            type:String,
+            required:true,
+        },
+        advanceSalary:{
+            type:Number,
+            required:true,
+        },
+        miscellaneousSalary:{
+            type:Number,
+            required:true,
+        },
         plantDumper:{
             type:Number,
             required:true,

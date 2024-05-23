@@ -12,6 +12,9 @@ const CreateExpense = () => {
     const [formData, setFormData] = useState({
         date:'',
         munshiSalary:"",
+        munshiName:"",
+        advanceSalary:"",
+        miscellaneousSalary:"",
         plantDumper:"",
         electricity:"",
         rent:"",
@@ -39,7 +42,7 @@ const CreateExpense = () => {
       const handleSubmit = (e) =>{
         e.preventDefault();
         
-        if(!formData.date || !formData.electricity || !formData.diesel || !formData.rent || !formData.munshiSalary || !formData.plantDumper){
+        if(!formData.date || !formData.electricity || !formData.diesel || !formData.rent || !formData.munshiSalary || !formData.munshiName || !formData.plantDumper){
           toast.error("All fields are required ");
           return;
         }
@@ -47,6 +50,9 @@ const CreateExpense = () => {
         dispatch(uploadExpense(
           formData.date,
           formData.munshiSalary,
+          formData.munshiName,
+          formData.advanceSalary,
+          formData.miscellaneousSalary,
           formData.plantDumper,
           formData.electricity,
           formData.rent,
@@ -62,6 +68,9 @@ const CreateExpense = () => {
 
           formData.date="";
           formData.munshiSalary="";
+          formData.munshiName="";
+          formData.advanceSalary="";
+          formData.miscellaneousSalary="";
           formData.plantDumper="";
           formData.electricity="";
           formData.rent="";
@@ -91,15 +100,38 @@ const CreateExpense = () => {
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
-                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md relative ' >
                             <label id='munshiSalary' className=' text-[18px] font-semibold font-poppins ' >Munshi Salary</label>
+                            <div className='flex justify-between ' >
                             <input
                                 type='number'
                                 id='munshiSalary'
                                 name='munshiSalary'
                                 value={formData.munshiSalary}
                                 onChange={handleInputChange}
-                                placeholder='Enter Munshi Salary'
+                                placeholder='Munshi Salary'
+                                className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            />
+                            <input
+                                type='text'
+                                id='munshiName'
+                                name='munshiName'
+                                value={formData.munshiName}
+                                onChange={handleInputChange}
+                                placeholder='Munshi Name'
+                                className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            />
+                            </div>
+                  </div>
+                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='advanceSalary' className=' text-[18px] font-semibold font-poppins ' >Advance Salary</label>
+                            <input
+                                type='number'
+                                id='advanceSalary'
+                                name='advanceSalary'
+                                value={formData.advanceSalary}
+                                onChange={handleInputChange}
+                                placeholder='Enter Advance Salary'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
@@ -209,6 +241,18 @@ const CreateExpense = () => {
                                 value={formData.rent}
                                 onChange={handleInputChange}
                                 placeholder='Enter Rent'
+                                className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
+                            />
+                  </div>
+                  <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
+                            <label id='miscellaneousSalary' className=' text-[18px] font-semibold font-poppins ' >Miscellaneous Salary</label>
+                            <input
+                                type='number'
+                                id='miscellaneousSalary'
+                                name='miscellaneousSalary'
+                                value={formData.miscellaneousSalary}
+                                onChange={handleInputChange}
+                                placeholder='Enter Miscellaneous Salary'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>

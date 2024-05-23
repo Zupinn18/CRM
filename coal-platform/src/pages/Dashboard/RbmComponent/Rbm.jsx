@@ -81,14 +81,14 @@ const Rbm = () => {
             <form>
                 <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[50px] ' >
                 <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >
-                            <label id='vNumber' className=' text-[18px] font-semibold font-poppins ' >V. Number</label>
+                            <label id='vNumber' className=' text-[18px] font-semibold font-poppins ' >Serial No.</label>
                             <input
                                 type='text'
                                 id='vNumber'
                                 name='vNumber'
                                 value={formData.vNumber}
                                 onChange={handleInputChange}
-                                placeholder='Enter V.No'
+                                placeholder='Enter S.No'
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             />
                   </div>
@@ -150,9 +150,7 @@ const Rbm = () => {
                                 className=' w-[100%] rounded-md bg-transparent text-[16px] outline-none '
                             >
                               <option value="" >Select Material</option>
-                               <option value="smallRocks" >Smaller Rocks</option>
-                              <option value="gravel" >Gravel</option>
-                              <option value="dust" >Dust</option>
+                               <option value="Raw Material" >Raw Material</option>
                             </select>
                   </div>
                   <div className='flex bg-[white] flex-col gap-1 px-6 py-4 rounded-md ' >

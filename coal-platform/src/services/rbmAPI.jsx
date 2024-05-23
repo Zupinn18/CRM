@@ -35,7 +35,7 @@ export function createRbm(
             }
 
             toast.success("Rbm Data Saved Successfully");
-            navigate("/dashboard");
+            navigate("/dashboard/my-profile");
 
         } catch (error) {
             console.log("Can't Save Data due to",error);

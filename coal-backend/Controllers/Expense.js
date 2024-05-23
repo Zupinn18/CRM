@@ -6,6 +6,9 @@ exports.createExpense = async(req,res)=>{
         const {
             date,
             munshiSalary,
+            munshiName,
+            advanceSalary,
+            miscellaneousSalary,
             plantDumper,
             electricity,
             rent,
@@ -28,6 +31,9 @@ exports.createExpense = async(req,res)=>{
         const expenses = await DailyExpense.create({
                     date,
                     munshiSalary,
+                    munshiName,
+                    advanceSalary,
+            miscellaneousSalary,
                     plantDumper,
                     electricity,
                     rent,

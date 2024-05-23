@@ -6,6 +6,9 @@ import { BASE_URL } from "../BaseURL.js";
 export function uploadExpense(
     date,
     munshiSalary,
+    munshiName,
+    advanceSalary,
+    miscellaneousSalary,
     plantDumper,
     electricity,
     rent,
@@ -25,6 +28,9 @@ export function uploadExpense(
             const response = await apiConnector("POST",`${BASE_URL}/expense/create-expense`,{
                     date,
                     munshiSalary,
+                    munshiName,
+                    advanceSalary,
+                    miscellaneousSalary,
                     plantDumper,
                     electricity,
                     rent,

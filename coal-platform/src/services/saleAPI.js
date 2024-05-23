@@ -39,7 +39,7 @@ export function createSale(
             }
 
             toast.success("Sale Data Saved Successfully");
-            navigate("/dashboard");
+            navigate("/dashboard/my-profile");
 
         } catch (error) {
             console.log("Can't Save Data due to",error);
@@ -87,7 +87,7 @@ return async (dispatch) =>{
         }
 
         toast.success("Sale Data Updated Successfully");
-        navigate("/dashboard");
+        navigate("/dashboard/my-profile");
 
     } catch (error) {
         console.log("Can't Updated Data due to",error);
